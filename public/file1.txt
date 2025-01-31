@@ -1,13 +1,4 @@
-﻿Questions:
-Book uses both 1000 b and 1024 b for Kb?
-
-
-Formulas:
-
-
-Maximum sending rate = bits-per-frame / time-per-frame
-
-
+﻿
 Ch 1
 1.1 + 1.2
 
@@ -419,13 +410,13 @@ Checksum = -8
 Message: P(x) = 10011010
 P(x) = x^7 + x^4 + x^3 + x^1
 Divisor polynomial: C(x) = x^3 + x^2 + 1 = 1101 //k=3
-//1. Multiply P(x) by x^3, since k=3. (append 3 0s)
+//1.Multiply P(x) by x^3, since k=3. (append 3 0s)
 10011010000
-//2. Divide by C(x)
+//2.Divide by C(x)
    
-//3. Append remainder to polynomial, and send
+//3.Append remainder to polynomial, and send
 10011010101
-//4. Receiver divides this by C(x), and if 0, no error.
+//4.Receiver divides this by C(x), and if 0, no error.
 
 
 
@@ -816,17 +807,17 @@ Subnetting is simply granularization of classful IP addressing, which only allow
 
 
 114. What are benefits of subnetting?
-1. Efficient use of scarce network addresses
-2. Improves router efficiency by reducing forwarding table sizes.
-3. Broadcast message traffic reduced, only going to intended subnetwork.
-4. Increased security, segmenting communication between departments.
+1.Efficient use of scarce network addresses
+2.Improves router efficiency by reducing forwarding table sizes.
+3.Broadcast message traffic reduced, only going to intended subnetwork.
+4.Increased security, segmenting communication between departments.
 
 
 115. What 4 assumptions can be made about network forwarding?
-1. Every datagram contains destination IP address
-2. The network part of an IP address uniquely identifies a physical network that is part of the Internet
-3. All hosts and routers that share the same network part of their address are connected to the same physical network, and can communicate with frames
-4. Every physical network connected to the Internet has a router that can communicate with other networks and the network itself.
+1.Every datagram contains destination IP address
+2.The network part of an IP address uniquely identifies a physical network that is part of the Internet
+3.All hosts and routers that share the same network part of their address are connected to the same physical network, and can communicate with frames
+4.Every physical network connected to the Internet has a router that can communicate with other networks and the network itself.
 
 
 116. How is a datagram sent by a host, depending on the destination address?
@@ -838,12 +829,12 @@ If it’s on the same physical network, it can be sent directly. Otherwise it is
 Bitwise and of 28.96.34.15 and 255.255.255.128 = 
 128.96.34.0.
 2.forward if same subnet, else send to next hop router.
-3. Router performs step 1 for dest. address and each entry’s subnet mask, comparing to each entry’s subnet address. If equals, sends to corresponding next hop.
+3.Router performs step 1 for dest. address and each entry’s subnet mask, comparing to each entry’s subnet address. If equals, sends to corresponding next hop.
 
 
 118. What is supernetting, or Classless interdomain routing (CIDR)?
 Supernetting is typically used by ISPs or large organizations to combine, rather than split, networks. It is basically adding a router to aggregate many contiguous network addresses into a single address. The purpose is to simplify routing and reduce the size of routing tables. As an example, if a company needed dozens of 256-host networks, that would require dozens of different addresses in a router’s routing table, and supernetting allows a single router to handle that.
-CIDR notation for subnet masks of arbitrary length e.g. /27, /30.
+CIDR notation for subnet masks of arbitrary length e.g. /27, /30
 
 
 119. Apply longest match rule to the following table addresses:
@@ -903,9 +894,9 @@ Security: The inner packet header and payload are encrypted, which prevents the 
 
 
 127. What are the two major classes of graph-based distributed routing algorithms?
-1. distance-vector routing or routing information protocol (RIP)
+1.distance-vector routing or routing information protocol (RIP)
 -Bellman Ford, minimizing number of hops
-2. Link-state routing or open shortest path first (OSPF)
+2.Link-state routing or open shortest path first (OSPF)
 -Dijkstra’s algorithm, can optimize bandwidth, delay, cost, or a combination.
 
 
@@ -917,8 +908,8 @@ Advertisement of link-state information to all other nodes in routing protocol.
   
 
 129. What are the two types of processing done in a router?
-1. Control plane: background processing required to control the network (OSPF, RIP, BGP)
-2. Data/user plane: per-packet processing required to move packets from input port to output port.
+1.Control plane: background processing required to control the network (OSPF, RIP, BGP)
+2.Data/user plane: per-packet processing required to move packets from input port to output port.
 
 
 130. What is a network processor unit (NPU)?

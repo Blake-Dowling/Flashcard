@@ -1,0 +1,8 @@
+.card{
+    min-height: 100vh;
+    display: flex vertical;
+    font-size: 3em;
+}
+.card-section{
+    margin: 4vh;
+}

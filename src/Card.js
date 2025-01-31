@@ -1,13 +1,15 @@
 import React from 'react'
+import './Card.css'
 
 export default function Card(props) {
-    console.log(props)
   return (
-    <div onClick={()=>props.clickAction()}>
-        <div>
+    <div 
+        className={'card'}
+        onClick={()=>props.clickAction()}>
+        <div className={'card-section'}>
             {props.question}
         </div>
-        <div>
+        <div className={'card-section'}>
             {props.showAnswer && props.answer}
         </div>
     </div>

@@ -13,7 +13,7 @@ function App() {
 
   useEffect(() => {
     //******************** fetch text file ********************/
-    fetch('/file1.txt')
+    fetch(`${process.env.PUBLIC_URL}/file1.txt`)
       .then(response => response.text())
       .then(text => {
         let newQuestions = []
@@ -52,7 +52,6 @@ function App() {
 
   return (
     <div className="App">
-      {questionNumber}
       <Card
           question={questions[questionNumber]}
           answer={answers[questionNumber]}
