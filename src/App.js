@@ -1,23 +1,64 @@
-import logo from './logo.svg';
+
 import './App.css';
+import { useState, useEffect } from 'react'
+import Card from './Card'
+
+
 
 function App() {
+  const [questions, setQuestions] = useState([])
+  const [answers, setAnswers] = useState([])
+  const [questionNumber, setQuestionNumber] = useState(null)
+  const [showAnswer, setShowAnswer] = useState(false)
+
+  useEffect(() => {
+    //******************** fetch text file ********************/
+    fetch('/file1.txt')
+      .then(response => response.text())
+      .then(text => {
+        let newQuestions = []
+        let newAnswers = []
+        // console.log(text.replace(/\r/g, '\\r').replace(/\n/g, '\\n'))
+        text?.split(/\s+(?=\d+\. )/g).forEach((entry, index) => {
+          // console.log(entry)
+          const [question, ...answer] = entry.split(/\r\n(.*)/s)
+          newQuestions.push(question)
+          newAnswers.push(answer)
+        })
+        setQuestions(newQuestions)
+        setAnswers(newAnswers)
+      })
+      .catch(error => console.error('Error loading file:', error))
+  }, [])
+
+  //******************** initialize question after txt loaded ********************/
+  useEffect(() => {
+    clickAction()
+  }, [questions])
+
+  //******************** click action ********************/
+  function clickAction(){
+    //Answer already revealed, go to next question
+    //(or initial setting of questionNumber)
+    if(questionNumber === null || showAnswer){
+      setQuestionNumber(Math.floor(Math.random()*questions.length))
+      setShowAnswer(false)
+    }
+    //Answer not revealed, simply show answer
+    else{
+      setShowAnswer(true)
+    }
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      {questionNumber}
+      <Card
+          question={questions[questionNumber]}
+          answer={answers[questionNumber]}
+          showAnswer={showAnswer}
+          clickAction={clickAction}
+      />
     </div>
   );
 }
