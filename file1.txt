@@ -1,13 +1,4 @@
-﻿Questions:
-Book uses both 1000 b and 1024 b for Kb?
-
-
-Formulas:
-
-
-Maximum sending rate = bits-per-frame / time-per-frame
-
-
+﻿
 Ch 1
 1.1 + 1.2
 
