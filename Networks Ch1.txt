@@ -1,0 +1,319 @@
+﻿
+1. What is a network (general definition)? 
+-Defined recursively as consisting of two or more nodes connected by a physical link. 
+-Set of serial lines to attach dumb terminals to mainframe computers. 
+-Specialized to handle one type of data
+-connect to special-purpose devices
+Constructed from a nesting of networks, with a physical-medium bottom level. 
+
+
+2. What are key challenges in providing network connectivity?
+-Definition of an address for each node that is reachable on the network (logical or physical).
+-Use of addresses to forward messages toward the appropriate destination nodes.
+
+
+3. What distinguishes a computer network from other types of networks?
+Generality; built from general-purpose programmable hardware, not optimized for a particular application, taken over functions of single-use networks.
+
+
+4. What does a network architecture do?
+Identifies the available hardware and software components and shows how they can be arranged to form a complete network system.
+
+
+5. What are types of networking applications? 
+World Wide Web, email, social media, streaming, videoconferencing, instant messaging, file sharing.
+
+
+6. What are types of network interactions?
+Users, application creators, network operators/managers, network designers/builders.
+
+
+7. How is complexity of multiple access addressed? How works?
+-Indirect connectivity is implemented using switched network or internetwork. 
+
+
+8. Describe the two ways computers can be indirectly connected.
+1. Switched Network: Node connected to two or more point-to-point links use software to forward data to and from particular nodes.
+-Packet-switched network transport discrete blocks of data.
+-Uses store-and-forward strategy, node (switch) receives, stores, then forwards data.
+-More efficient than circuit-switched networks.
+2. Internetwork (internet): Set of independent networks (clouds) are interconnected.
+
+
+9. What are switches and hosts? Cloud?
+-Switches are nodes on the inside that implement the network.
+-Hosts are nodes outside of the cloud that use the network, supporting users and running application programs.
+-Cloud is one of most important icons of computer networking. Used to denote any type of network; point-to-point, multiple-access, or switched.
+
+
+10. What is a router?
+A router (or gateway) is a node connected to two or more networks, forwarding messages like a switch. Can be recursive, which is the fundamental innovation of the Internet. Routers’ purpose is to use routing algorithms to determine the best next hop router to send a layer 3 packet to. Therefore, they do not handle layer 3 packet creation, which is the host’s responsibility. They do, however, have a MAC address and the ability to forward layer 2 frames within a network, in addition to routing layer 3 packets to other networks.
+
+
+  
+  
+
+
+
+
+
+11. What is an address?
+Addresses are identifying byte strings that allow hosts to say which of the other connected nodes they want to communicate with. They include broadcast and multicast addresses in addition to unicast.
+
+
+12. What is routing?
+Routing is the process of systematically determining how to forward messages toward the destination node based on its address, when the sending and receiving nodes are not directly connected.
+
+
+13. What is multiplexing?
+Multiple hosts share a link at the same time, like a processor.
+
+
+14. Describe types of multiplexing.
+-synchronous time-division multiplexing: round-robin equally-sized quanta.
+-frequency-division multiplexing: each signal gets unique frequency, like TV channels.
+
+
+15. What is statistical multiplexing, and why is it important?
+-It is what makes packet-switched networks efficient.
+-Like STDM, but transmits on-demand to avoid wasted time slots. It uses defined upper bound on size of transmission to ensure rotation of flows (packet size).
+-Defines a cost-effective way for users to share network resources in a fine-grained manner.
+-Packet is granularity with which links are allocated to flows, each switch able to schedule the use of links on a per-packet basis.
+
+
+16. What are the key challenges of statistical multiplexing?
+Fairly allocating link capacity to different flows and dealing with congestion.
+
+
+17. What decision does the transmitting switch have in statistical multiplexing?
+-FIFO: simply transmit in order.
+-round robin: alternate transmissions among flows.
+-quality of service: ensure certain flows have minimum allocated bandwidth.
+
+
+18. What is congestion?
+Transmitting switch buffers multiplexed packets to fit link it sends over. When buffer fills up, packets are dropped.  
+
+
+19. What are channels?
+Channels are logical pipes connecting applications, offering various services such as reliability, order maintenance, and security. Logical Application to application channels are layered on top of physical host to host channels. There are different types to suit needs of both applications and provide modularity.
+
+
+20. How do client and server work for reading and writing?
+-writing: client sends data to server, server acknowledges.
+-reading: client sends small request message and server responds with data.
+
+
+21. Describe request/reply versus message stream channels.
+-Request/reply: guarantees one copy received, privacy
+-message stream: no delivery guarantee needed, but order guarantee. Privacy, multicast. efficient.
+
+
+22. What are design tradeoffs with channels?
+-New channel types must be created to suit new applications instead of maintaining simplicity of few types.
+-channel services can be implemented in network switches or in applications at ends of channel.
+
+
+23. What are the three classes of failures?
+-bit errors: flipped 0 or 1, occur in bursts, quite rare 1 in 10^6 to 10^14. Correctable by flipping, if known which bits, else packet dropped.
+-packet failures: usually congestion, difficult to know lost or slow packet.
+-node and link failures: rare but long down time
+
+
+24. What is the semantic gap?
+Defining useful channels involves both understanding applications’ requirements and recognizing limitations of underlying technology. Semantic gap is challenge of fulfilling requirements with available technology.
+
+
+1.3 architectures + 1.4 software
+
+
+25. What are network architectures and what are the most well known?
+Blueprints to guide and design the implementation of networks, addressing complexity through abstraction, namely layering which provides modularization. They may follow policies established by standardization bodies like IETF and ISO. Most well known are OSI and Internet architectures.
+
+
+26. What is a protocol?
+Abstract objects that make up layers of a network system. A protocol stack is a vertical combination of protocols. E.g. RRP: request-reply protocol, HHP: Hybrid Hypertext Processor, MSP: Microsoft Point-to-Point.
+
+
+27. What are the two interfaces defined by a protocol?
+-service interface: defines operations that local objects can use to communicate with the protocol, eg fetch operation of HTTP protocol.
+-peer interface: defines format of messages to and from another machine, eg GET command format in HTTP protocol defines arguments and response of GET function.
+
+
+
+
+  
+  
+
+
+
+28. What is encapsulation?
+Message payloads are hidden from peer-to-peer protocols, which only process headers pertaining to lower layers. The peer-to-peer message is processed in reverse by the receiving protocol, removing the lower-level headers in-order and passing the exact body that was sent to a higher layer.
+  
+
+
+
+29. Protocols can act similarly to switches, multiplexing and demultiplexing messages from multiple higher-level protocols, e.g. multiple applications sharing one RRP, using a demux key in the header to identify the destination application.
+
+
+30. Describe the OSI model.
+7-layer reference model for protocol graph, no longer used but referenced.
+-On all nodes, including switches:
+1.physical layer: handles transmission of raw bits over a communications link.
+2.data link: collects stream of bits into a larger aggregate called a frame, delivered to host.
+3.network layer: handles routing among nodes within a packet-switched network. Called packets instead of frames, but same thing.
+-Only on end nodes:
+        4.transport: process-to-process channel, “messages” instead of packets.
+
+
+        5.session: provides name space for multiple streams in single application, does things like combine audio and video in teleconferencing.
+6.presentation: host-to-host data formatting, eg integer size, endianness, video stream format 
+        7.application layer: includes protocols such as HTTP
+
+
+31. Describe the Internet (TCP/IP) Architecture.
+2.subnetwork: wide variety of network protocols, ethernet, 802.11 Wi-Fi 
+3.Internet Protocol (IP): single protocol, supports the interconnection of multiple networking technologies into a single, logical internetwork.
+4.Transmission control protocol / User datagram protocol: reliable byte-stream channel or unreliable datagram delivery channel for application programs. end-to-end/transport protocols.
+7.application protocols: HTTP, FTP, Telnet, Simple Mail Transfer Protocol, enable interoperation of applications. 
+
+
+32. What is important to note / benefits of the Internet Architecture?
+-It has an hourglass design (IP focal point), representing minimal and carefully-chosen set of capabilities, that allows both higher-level applications and lower-level communication technologies to coexist, share capabilities, and evolve rapidly. 
+-Non-strict layering, very flexible.
+-IETF culture must approve new protocols.
+
+
+33. What are APIs and what is the socket interface?
+-APIs are syntax by which protocols’ services can be invoked on a particular computer system.
+-API defining the demarcation point between applications running on top of the Internet, and the details of how the Internet is implemented, a socket being where an application attaches to the internet. 
+-Linux and C
+-Well-defined and stable, leading to Internet application explosion into multi-billion dollar industry. 
+
+
+34. What are addresses and ports?
+-An address is a data structure that includes both IP address and TCP port of a server.
+-ports: used to indirectly identify processes, a form of demux key. Usually some well-known service-specific number, such as 80 for servers to accept connections.
+
+
+35. How do server and client establish socket connection?
+-server: socket, bind, listen, accept, (send/recv)
+-client: socket, connect, (send/recv)
+
+
+36. What are passive and active open of a socket?
+Note a server (after listening to find number of pending connections) creates a second socket during connect through a blocking operation that returns a new socket and the remote participant’s address. The server’s original socket remains, in passive open state, for future accept calls.
+In an active open, the client says who it wants to communicate with using connect, returning the server’s address.
+
+
+
+
+1.5 Performance
+
+
+37. What is bandwidth?
+Bandwidth (throughput) is the number of bits over time (bps), or how long it takes to transmit each bit.
+
+
+38. How much time to transmit each bit for a 10Mbps network?
+10,000,000 bps = 1s / 10,000,000 bits 
+1s / 10,000,000 bits x (1/10,000,000s) / (1/ 10,000,000 bits) = 1x10^-7s / bit = 0.1 microseconds
+
+
+39. What is the difference between bandwidth, datarate, and throughput?
+Datarate and bandwidth refer to maximum rate supported by link. Throughput is the actual measured performance.
+
+
+40. What are the widths of bits transmitted on 1- and 2-Mbps links (time per bit)?
+1Mbps = 1s/1,000,000 bits = (1/1,000,000s) / 1 bit = 1 microseconds
+2Mbps = 1s/2,000,000 bits = (1/2,000,000s) / 1 bit = 0.5 microseconds
+
+
+41. What are latency and RTT?
+Latency is how long it takes to travel from one end of a network to the other. 
+Round trip time includes return time.
+
+
+42. What are the three components of latency and its formula?
+Speed of light propagation delay, data transmission time, queuing delays inside network.
+Latency = propagation + transmit + queue
+Propagation = distance / c
+Transmit = packet size / bandwidth
+
+
+43. * When to prioritize latency vs bandwidth?
+Bandwidth doesn’t matter for very small data sizes, like 1 byte. Makes a difference for larger data sizes, whereas latency does not change.
+
+
+44. How fast to transmit 25MB image with bandwidth of 10Mbps?
+10,000,000 bits / s * t = 25,000,000 * 8 bits = 200,000,000 bits
+t = 200,000,000 bits / 10,000,000 bits = 20s
+!Doesn’t make sense: “It will take 20 seconds to transmit the image (25 × 106 × 8-bits / (10 × 106 Mbps = 20 seconds), making it relatively unimportant if the image is on the other side of a 1-ms channel or a 100-ms channel; the difference between a 20.001-second response time and a 20.1-second response time is negligible.” - p 39
+Doesn’t channel scale transmit latency by factor of 10? 
+
+
+45. Using delay x bandwidth product, how many bits can fit in a transcontinental channel with latency of 50ms and bandwidth of 45 Mbps?
+50e-3 s x 45e6 bits/s = 2.25e6 bits
+= 2.25 / 8 MB = 0.281MB
+
+
+46. Why is the delay x bandwidth product important?
+RTT x bandwidth is used in constructing high-performance networks to tell us how much data must be transmitted before receiving a response in order to fully utilize the network. An RTT is like a bus that increases in size when the bandwidth increases (but less RTTs are required).
+
+
+47. How many round trips with 100ms RTT for a 1MB file for 1 Mbps and 1 Gbps (high speed) links?
+Rtt * bandwidth * trips = data size
+100ms * 1Mbps * N trips = 1MB
+N trips = 8e6 bits / (1e-1s * 1e6 bits / s)
+N trips = 8e6 bits / 1e5 bits
+N trips = 80 trips
+
+
+100ms * 1Gbps * N trips = 1MB
+N trips = 8e6 bits / (1e-1s * 1e9 bits / s)
+N trips = 8e6 bits / 1e8 bits
+N trips = 8e-2 trips = 0.02 trips
+
+
+
+
+48. What is important in a high speed link and why?
+Latency dominates high-speed network design. Because more data can be transmitted per RTT (round trip time), each RTT becomes a significant amount of time. E.g. 100 -> 101 RTTs = 1% increase in trips (time). 1->2 RTTs = 100% increase in trips.
+
+
+   
+
+
+49. What is the effective throughput in fetching a 1MB file across a 1Gbps with 100ms RTT?
+Throughput = size / time = 1MB / time
+Time = RTT + size/bandwidth = 100ms + 1MB/1Gbps
+= 1e-1s + 8e6 bits / 1e9 bits/s
+= 1e-1s + 8e-3s = 0.1s + 0.008s
+= 0.108s
+Throughput = 8e6 bits / 0.108s
+= 7.407e7 bps = 74.07 Mbps
+
+
+50. Why does transferring a larger amount of data help improve the effective throughput?
+Reduces the impact of overhead and latency on the total data transfer. Approaching an infinitely large transfer size causes throughput to approach network bandwidth. When transfer size is low relative to rtt x bandwidth, the sender must still wait one full RTT for a response, so volume in the ‘pipe’ is being wasted.
+
+
+51. What is the struggle in placing an upper limit on an application’s bandwidth? What is the solution?
+Video streams are compressed, transmitting only differences across frames, and frames themselves are also compressed. Therefore, video does not flow at a constant rate, and using the average does not account for fluctuations outside of the used time interval which exceed the maximum channel capacity. 
+The solution is to buffer outgoing bursts which exceed the instantaneous capacity, so the stream is still steady with time, although this requires a delay.
+
+
+52. What is jitter and its solution?
+Jitter is variation in latency across packets often introduced by the network through multi-hop queuing delays. It implies the receiver of a video stream can handle early frames, but not late frames. 
+The solution is to know the upper and lower bounds on latency that a packet can experience, basically estimating the largest inter-packet gap and delaying the entire stream by this amount using a buffer on the receiver’s end.
+
+
+53. What are software defined networks and why relevant?
+-Engineering practices applied to network internals rather than using applications on top, i.e. cloudification. 
+-They are relevant because computer networks are in the midst of major innovation (feature velocity) while operators must also provide reliability. 
+a.This is done using commodity hardware with software-based intelligence 
+b.and devops, or agile engineering processes that break down barriers between development and operations.
+
+
+
+

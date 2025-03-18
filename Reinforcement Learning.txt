@@ -1,0 +1,29 @@
+﻿1. What are the types of RL algorithms?
+-Value-based, 
+-policy-based, 
+-actor-critic, 
+-model-based, and 
+-evolutionary and hybrid methods.
+2. What are examples of value-based methods?
+-SARSA, 
+-Q-Learning, 
+-Double DQN, and 
+-Rainbow DQN
+3. What are examples of policy-based methods?
+-REINFORCE (Monte Carlo Policy Gradient), 
+-Trust Region Policy Optimization (TRPO)
+-Proximal Policy Optimization (PPO)
+-Soft Actor-Critic (SAC)
+4. What are examples of actor-critic methods?
+-A3C (Asynchronous Advantage Actor-Critic)
+-DDPG (Deep Deterministic Policy Gradient)
+-TD3 (Twin Delayed DDPG)
+-AlphaGo/AlphaZero
+5. What are examples of model-based methods?
+-Dyna-Q
+-MuZero
+6. What are examples of evolutionary/hybrid methods?
+-Evolution Strategies (ES)
+-NeuroEvolution
+-Hybrid Algorithms
+7. What are on- versus off-policy methods?
