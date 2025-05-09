@@ -5,7 +5,7 @@ export default function Card(props) {
   return (
     <div 
         className={'card'}
-        onClick={()=>props.clickAction()}>
+        onClick={()=>props.clickAction(1)}>
         <div className={'card-section'}>
             {props.question}
         </div>

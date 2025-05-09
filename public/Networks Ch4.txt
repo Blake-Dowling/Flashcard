@@ -1,0 +1,45 @@
+﻿
+152. What are autonomous systems (AS) and what is the main idea?
+Internet routing domain. The purpose is to provide an additional way to hierarchically aggregate routing information in a large internet. (scalability). Decouples intradomain and interdomain routing, where only interdomain routing problem requires ASs to share reachability information.
+
+
+153. What are the challenges of interdomain routing, making it more difficult than intradomain?
+-Policy: Each AS needs to determine own routing policies, which become complex and must be supported by the interdomain routing system. Cannot get information from other ASs.
+-Routing: Finding some non-looping, policy-compliant path (much more complex than simple path cost optimization).
+-Scale: Internet backbones must be able to route to any internet address.
+-Cannot find optimal path, because only reachability is advertised.
+-Trust: reachability advertisements of providers can be wrong.
+
+
+154. What is an area?
+Set of routers administratively configured to exchange link-state information.
+
+
+155. What is an area border router (ABR)?
+A router that is part of the backbone area and a non-backbone area.
+
+
+156. What is OSPF?
+A link-state routing protocol that partitions a routing domain into areas. Basically, networks in different areas communicate through ABRs, through the backbone. It hides link state information from other areas, using ABRs to advertise shortest path to destination networks. This provides scalability, although sometimes preventing optimality, as all inter-area paths must go through the backbone, even if they’re directly connected.
+
+
+
+
+
+
+157. What is a peering point?
+
+
+
+
+158. What is border gateway protocol (BGP)?
+Interdomain routing algorithm used by border routers and BGP speakers. Speakers Advertise complete paths as an enumerated list of ASs to reach a network. Allows each AS to apply its own interdomain protocol to the advertised paths. Prevents looping paths by detecting self in full path. Runs on top of TCP. 
+
+
+159. Following border gateway protocol (BGP), What does 
+
+
+160. What are three common relationships between autonomous systems (AS) and the respective policies?
+-provider-customer: advertises all routes to customers and providers.
+-customer-provider: Advertises provider-learned routes to customer and customer-learned to their provider, but not to another provider.
+-peer: Provider shares customer-learned routes with peer, peer-learned with customers, but not with other providers.

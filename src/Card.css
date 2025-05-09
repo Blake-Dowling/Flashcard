@@ -2,6 +2,7 @@
     min-height: 100vh;
     display: flex vertical;
     font-size: 3em;
+    white-space: pre-line;
 }
 .card-section{
     margin: 4vh;
