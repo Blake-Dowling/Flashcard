@@ -1,0 +1,54 @@
+
+173. How to turn this host-to-host packet delivery service into a process-to-process communication channel (Transport layer)?
+-UDP, 
+-Reliable bytestream (TCP), 
+-RPC
+-transport protocols that use ports to indirectly specify a channel for sending and receiving between processes.
+
+
+174. What does UDP do?
+-Multiplexes to allow processes on a host to share network, using ports.
+-checksum error detection.
+
+
+175. What features toes TCP have?
+-Guarantees reliable, in-order delivery of byte stream
+-full-duplex
+-flow control (limits sender)
+-multiplexes like UDP
+-congestion control
+
+
+176. Explain the difference between flow and congestion control:
+-flow control: end-to-end issue, prevents sender overloading receiver buffer
+-congestion control: host-network issue, prevents excess injection into network overflowing switches/links
+
+
+177. How does TCP sliding window differ from link-level?
+1.logical connections over internet requiring establishment and teardown phases.
+2.Retransmission timeout mechanism must be adaptive to variable latency.
+3.Needs to handle receiving old packets 
+4.Must learn buffer size of other side (flow control)
+
+
+178. What are 3 purposes of TCP’s sliding window alg?
+-1.guarantees reliable delivery
+-2.ensures order of data
+-3.flow control between sender and receiver
+
+
+179. In TCP sliding window, how does sender know when AdvertisedWindow is no longer 0 if it’s not receiving acks, since it is blocked?
+Sender sends Zero Window Probes every 5-60s to get an ack containing the AdvertisedWindow.
+
+
+180. What is Karn/Partridge Alg?
+-Don’t measure RTT from retransmissions. 
+-Double timeout after each ret.
+
+
+181. What is Jacobson/Karels?
+More variance in RTT -> timeout more based on deviation than estimatedRTT
+
+
+182. What is RPC?
+Transport protocol with message identification, fragmentation/reassembly, reliability, marshalling.
