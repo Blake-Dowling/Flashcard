@@ -1,22 +1,27 @@
-﻿
+﻿Ch 2 direct links
+
+
+Link-level protocols
+
+
 2.1 
 
 
-55. What challenges do isps face in creating a layer two connection between nodes?
+1. What challenges do isps face in creating a layer two connection between nodes?
 Physical medium, encoding, framing, error correction, reliable delivery, and access mediation.
 
 
-56. What is Shannon-Hartley Theorem?
+2. What is Shannon-Hartley Theorem?
 -Upper bound of link in bps, function of SNR.
 C=B*log_2(1+S/N)
-57. A channel occupies 300Hz to 3300Hz frequency band. SNR is 30dB. What is the channel capacity in bps?
+3. A channel occupies 300Hz to 3300Hz frequency band. SNR is 30dB. What is the channel capacity in bps?
 C=B*log_2(1+S/N)
 30dB SNR = S/N of 1000
 C=3000*log_2(1+1000)
 C=29.9kbps
 
 
-58. What are the following S/R ratios? 1dB, 2dB, 3dB, 5dB, 10dB, 15dB, 20dB, 30dB, 40dB:
+4. What are the following S/N ratios? 1dB, 2dB, 3dB, 5dB, 10dB, 15dB, 20dB, 30dB, 40dB:
 10^(1/10)=1.259
 10^(2/10)=1.585
 10^(3/10)=1.995
@@ -30,25 +35,25 @@ C=29.9kbps
 
 
 
-59. What is the wavelength of a 300Hz wave?
+5. What is the wavelength of a 300Hz wave?
 Speedoflightcopper / frequency
 ⅔ * 3e8 / 300
 667e3 m
 
 
-60. What is modulation? 
+6. What is modulation? 
 Varying frequency, amplitude, or phase of a signal to affect the transmission of information.
 
 
-61. How do copper wires carry multiple signals?
+7. How do copper wires carry multiple signals?
 
 
-62. What is the implication of which frequency is used?
+8. What is the implication of which frequency is used?
 
 
 
 
-63. What are some link classifications and the technologies used?
+9. What are some link classifications and the technologies used?
 Last-mile: provided by ISP, fiber to home (PON),
 Mobile/cellular: connectivity while moving, mobile wireless (4G, 5G)
 Backbone: interconnect cities, point-to-point fiber links, synchronous optical network (SONET) technology
@@ -56,17 +61,17 @@ Local access network (LAN): carrier sense multiple access (Ethernet and WiFi)
 
 
 2.2 Encoding
-64. What is a network adaptor?
+10. What is a network adaptor?
 Piece of hardware connecting node to link, containing signalling component that en/decodes bits to signals. Bits flow between them. Enables nodes to exchange frames by framing and deframing to and from bits.Faces framing problem: where frame begins and ends.
 
 
-65. What are two problems in encoding?
+11. What are two problems in encoding?
 -baseline wander: Average used to classify high/low signal weighted by too many consecutive repetitions of same signal
 -clock recovery: transmitter and receiver signals require transitions for synchronization
 
 
-66. What are types of encoding strategies?
-Non-return to Zero: directly encoded bits, 
+12. What are types of encoding strategies?
+Non-return to Zero: directly encoded bits, baseline wander and clock recovery problems.
 Non-return to Zero inverted: transition encodes high, solves consecutive 1s
 Manchester: transition encoding, bad: bit rate = ½ baud rate 
 4B/5B: solves manchester’s inefficiency and baseline wander using break-up bit. Transmits using NRZI. 80% efficient.
@@ -76,13 +81,13 @@ Manchester: transition encoding, bad: bit rate = ½ baud rate
 
 
 
-67. Perform 4B/5B encoding 
+13. Perform 4B/5B encoding 
 
 
 2.3 Framing
 
 
-68. What is the framing problem and 3 ways it’s addressed?
+14. What is the framing problem and 3 ways it’s addressed?
 Recognizing what set of bits constitutes a frame.
 1.byte-oriented protocols: point-to-point (PPP) uses sentinel approach (BISYNC): 
 a.character stuffing, characters to delimit (DLE SYN) 
@@ -96,14 +101,26 @@ b. (DDCMP) indicates number of frame’s bytes in header, bad if value is corrup
 -delimited by 2-byte bit pattern, but is not “stuffed” (escaped), meaning it is only differentiated by the same pattern in the body by determining frames are in sync.
 
 
+15. What is the difference between character stuffing and bit stuffing?
+-In preventing confusion between sentinel characters and frame characters, character stuffing escapes sentinel characters, and bit stuffing alters bits in the sentinel character. 
+-Character stuffing is used in byte-oriented protocols, which view frames as collections of bytes (PPP, BISYNC, DDCMP). Bit stuffing is used in bit-oriented protocols, which do so as bits (HDLC).
+
+
+16. Describe framing protocols: 
+-Point-to-point (PPP): byte-oriented sentinel: 01111110 (byte-stuffing), checksum, supports IPX (multiple protocols).
+-Binary synchronous communication protocol (BISYNC): byte-oriented sentinel: escape chars SYN, STX, ETX. Parity checking(single-bit errors in characters) + CRC(multi-bit errors in frame).
+-Digital data communication protocol (DDCMP): Byte-counting: SYN, count, CRC.
+-High-level data link control (HDLC):  01111110 (bit stuffing), CRC.
+
+
 2.4 error detection
 
 
-69. What are some error detection algorithms, and what is the best?
+17. What are some error detection algorithms, and what is the best?
 Parity tracking, checksum, *cyclic redundancy check (CRC).
 
 
-70. Perform Internet Checksum Algorithm on the following integer sequence: -5, -3. Explain how checksum is used to detect an error and its pros/cons.
+18. Perform Internet Checksum Algorithm on the following integer sequence: -5, -3. Explain how checksum is used to detect an error and its pros/cons.
 
 
 1010 + 1100 = 0110 //Note carry was cut off
@@ -115,7 +132,7 @@ Checksum = -8
 -Uses small amount of redundant bits and is fast, but multiple errors can increment/decrement bits that cancel out, meaning the checksum will not detect the errors.
 
 
-71. Perform Cyclic Redundancy Check (CRC) Algorithm on the message:
+19. Perform Cyclic Redundancy Check (CRC) Algorithm on the message:
 Hash (multiply) P (message) by C (generator), then add remainder. Receiver divides message by same C, and checks remainder for equivalence.
 Message: P(x) = 10011010
 P(x) = x^7 + x^4 + x^3 + x^1
@@ -131,7 +148,7 @@ Divisor/generator polynomial: C(x) = x^3 + x^2 + 1 = 1101 //k=3
 
 
 
-72. What are the tradeoffs between error detection and error correction?
+20. What are the tradeoffs between error detection and error correction?
 -error detection: When errors occur, entire copy of message must be requested, then retransmitted, but fewer redundant bits per message.
 -error correction requires a greater number of redundant bits (all the time) to send an error-correction code. More useful when 
 1. errors are more probable, like in wireless, or 
@@ -139,17 +156,17 @@ Divisor/generator polynomial: C(x) = x^3 + x^2 + 1 = 1101 //k=3
 3. Don’t know next time will be able to transmit or algorithm is complex, like Ried-Soloman
 
 
-73. What is forward error correction? 
+21. What is forward error correction? 
 Just means redundant bits handle error correction in advance, rather than re-transmission with mere detection. Commonly used in 802.11 wireless network.
 
 
-74. How is Cyclic Redundancy Check (CRC) implemented in hardware?
+22. How is Cyclic Redundancy Check (CRC) implemented in hardware?
 -Shift register with number of bits = k.
 -XOR gate used to convert generator polynomial into binary.
 -XOR also used to perform minus operation in polynomial arithmetic, because the operations are the same.
 
 
-75. *What is two-dimensional parity (BISYNC)?
+23. *What is two-dimensional parity (BISYNC)?
 Way to know if received data is correct. Is parity of 0 and 1 same? E.g. if odd # 1s sent, is odd # received? 
 Perform parity tracking (find parity byte):
 
@@ -164,32 +181,32 @@ Add parity bits and byte to make # of 1s even horizontally and vertically. For e
 Overhead of error correction codes is typically too large to handle to range of bit and burst errors, and always possible severely corrupted frames will be discarded. This section describes how a link-level protocol recovers from lost frames (although can be done in higher levels instead).
 
 
-76. What is Reed-Soloman algorithm?
-77. What is hybrid ARQ (H-ARQ)?
+24. What is Reed-Soloman algorithm?
+25. What is hybrid ARQ (H-ARQ)?
 Uses both FEC and ARQ.
 
 
-78. What are the two fundamental mechanisms of reliable transmission?
+26. What are the two fundamental mechanisms of reliable transmission?
 -acknowledgements: ACK small control frame sent back to peer signifying re-transmission not necessary. Can piggyback on other data frames.
 -timeouts: Amount of time sender waits for ACK until retransmitting. Reasonable to be 2 RTTs in length.
 -ACK + timeouts = ARQ sometimes
 
 
-79. What are the two types of reliable transmission strategies?
+27. What are the two types of reliable transmission strategies?
 -FEC forward error correction (PHY) 
 -ARQ Automatic repeat request w/ CRC for detection (MAC)
 
 
-80. What are three algorithms of Automatic Repeat Request (ARQ)?
+28. What are three algorithms of Automatic Repeat Request (ARQ)?
 Stop-and-wait, sliding window, and concurrent logical channels.
 
 
-81. Explain stop-and-wait algorithm and its shortcoming.
+29. Explain stop-and-wait algorithm and its shortcoming.
 Uses a timeout to wait for ACK from receiver to send next message. If not received in time, re-sends. Duplicate messages caused by ACK arriving after timeout are remedied using sequence bit in sent message’s header.
 -shortcoming is it’s latency-bound, very slow, due to 1 message per RTT. 
 
 
-82. In a 1.5-Mbps link with 45ms RTT, delay x bandwidth of 67.5Kb (8KB), and frame size of 1KB, what is the maximum sending rate?
+30. In a 1.5-Mbps link with 45ms RTT, delay x bandwidth of 67.5Kb (8KB), and frame size of 1KB, what is the maximum sending rate?
 Maximum sending rate = bits-per-frame / time-per-frame
 = 8e3 b / 4.5e-2 s = 1.78e5 bps = 0.178 Mbps (178 Kbps)
 
@@ -202,7 +219,7 @@ Delay x bandwidth
 .000801 / .007 = .115 capacity used
 
 
-83. Explain the sliding window algorithm
+31. Explain the sliding window algorithm
 -It allows subsequent frames to be sent before receiving ack for previous increasing capacity utilization. Using sequence numbers, the sender ensures the difference between the last acknowledgement received and the last frame sent does not exceed the send window size.
 -Receiver buffers frames until missing frames are received.
 Window size can adapt to network conditions.
@@ -210,26 +227,26 @@ Window size can adapt to network conditions.
 -sender/receiver maintain invariant LFS/LAF - LAR/LFR <= SWS/RWS
 
 
-84. Implement sliding window.
+32. Implement sliding window.
 
 
-85. How determine widow sizes?
+33. How determine widow sizes?
 SWS: delay x bandwidth
 RWS: =1: no buffer, no out-of-order
 RWS=SWS: can buffer all sent frames
 
 
-86. Why does it not make sense for RWS > SWS?
+34. Why does it not make sense for RWS > SWS?
 The sender cannot send a packet that is outside of the receiver’s buffer.
 
 
-87. What are the problems with sliding window?
+35. What are the problems with sliding window?
 -Timeouts decrease data in transit.
 -Longer to notice packet loss, more severe.
 -Improved using negative (NAK), additional, and selective acknowledgement.
 
 
-88. What are the three roles of the sliding window algorithm?
+36. What are the three roles of the sliding window algorithm?
 1.reliably deliver frames across an unreliable link
 2.preserve the order in which frames are transmitted
 3.flow control: a feedback mechanism by which the receiver is able to throttle the sender
@@ -240,7 +257,7 @@ The sender cannot send a packet that is outside of the receiver’s buffer.
 
 
 2.6 multi-access networks
-89. What is Ethernet?
+37. What is Ethernet?
 Wired LAN 
 500m coaxial segments, 2500m reach (4-repeater max)
 Uses carrier sense, multiple access with collision detect (CSMA/CD)
@@ -251,14 +268,14 @@ Competes with 802.11 (WiFi)
 
 
 
-90. What is Media access control (MAC)?
+38. What is Media access control (MAC)?
 Algorithm that controls access to a shared Ethernet link. Implemented in hardware.
 Every host (adaptor) in the world has a unique Ethernet address.
 Ethernet Receiver
 Each host on a network receives every frame but only accepts those addresses to its address, the broadcast address, a multicast address if it it assigned to listen to it, and if host is in promiscuous mode, all frames.
 
 
-91. Describe Ethernet transmitter algorithm:
+39. Describe Ethernet transmitter algorithm:
 (This is for Shared networks with hubs; modern switched Ethernet networks have virtually eliminated collisions)
 Transmits fixed length of time, 1500 byte upper bound.
 1-persistent protocol, transmits when line idle.
@@ -267,24 +284,26 @@ Exponential backoff:
 Delay 0 or 51.2 μs. Then k*51.2μs, where k is random between 0 and 2^n-1 where n is #collisions so far.
 
 
+40. Why is Ethernet limited to 1500m and 4 repeaters between 2 hosts?
+This provides an RTT of 51.2μs on 10Mbps, which is short enough for access alg to work.
 
 
-92. What is carrier sense?
+41. What is carrier sense?
 Each Ethernet device is able to determine if the medium is busy, and waits until idle, else transmits immediately.
 Collision is detected if medium signal is distorted while transmitting.
 If collision, Stops transmitting and sends jam signal.
 Waits for amount of time determined by exponential back off algorithm until retransmitting.
 
 
-93. What is the worst case scenario of Ethernet transmitter algorithm?
+42. What is the worst case scenario of Ethernet transmitter algorithm?
 B begins transmitting right when A’s frame arrives (t_0+d). B’s runt frame arrives at t_0+2d.
 
 
-94. Why is Ethernet limited to 2500m?
+43. Why is Ethernet limited to 2500m?
 Maximum latency needs to be limited to 51.2 μs for access algorithm to work. Otherwise, transmitter’s first backoff delay would have to be longer than 51.2 μs.
 
 
-95. What are the benefits of Ethernet?
+44. What are the benefits of Ethernet?
 - easy to administer and maintain
 -Inexpensive
 
@@ -294,29 +313,29 @@ Maximum latency needs to be limited to 51.2 μs for access algorithm to work. Ot
 2.7 Wireless Networks
 
 
-96. How do wireless links differ from wired?
+45. How do wireless links differ from wired?
 -more bit errors due to unpredictable noise environment
 -power: mobile devices have limited power, and excessive power causes interference
 -inherently multi-access, MAC central issue and hard to prevent eavesdropping
 
 
-97. How is medium shared?
+46. How is medium shared in wireless networks?
 Dividing along frequency and space; frequencies allocated to entities in particular areas, determined by FCC.
 
 
-98. What is spread spectrum and what are two techniques?
+47. What is spread spectrum and what are two techniques?
 Spreading signal over wider frequency band to minimize impact of interference from other devices. 
 -Frequency hopping: implementing spread spectrum by algorithmically changing frequencies of transmitter and receiver in parallel.
 -Direct sequence: The original data signal (narrowband) is multiplied by a spreading code (a pseudorandom sequence of bits, also called a chip sequence).
 This spreading code runs at a much higher rate (chip rate) than the original data signal, spreading the signal energy across a wider frequency band.
 
 
-99. What are basic topologies for wireless networks?
+48. What are basic topologies for wireless networks?
 -base station model: client nodes go through base station
 -mesh/ad hoc: no base station, nodes are peers and can forward messages through others.
 
 
-100. What are techniques to increase data rate of IEEE 802.11 (WiFi)?
+49. What are techniques to increase data rate of IEEE 802.11 (WiFi)?
 -originally 2Mbps
 -orthogonal frequency division multiplexing (OFDM): divides a high-speed data stream into multiple lower-speed sub-streams, which are then transmitted simultaneously over multiple orthogonal sub-carriers. This approach improves data transmission efficiency and robustness in environments prone to interference and multipath fading.
 -multiple input, multiple output (MIMO): a wireless communication technology that uses multiple antennas at both the transmitter and receiver to improve communication performance. It enhances the capacity, speed, and reliability of wireless systems by exploiting spatial diversity and spatial multiplexing
@@ -324,16 +343,16 @@ This spreading code runs at a much higher rate (chip rate) than the original dat
 
 
 
-101. What is the benefit of lower bit rate?
+50. What is the benefit of lower bit rate?
 -Easier to decode signals in presence of noise (achieved using different modulation scheme)
 -More redundant information means more resilience to bit errors (bit rate inherently lowered by transmitting redundant bits)
 
 
-102. How is the best bit rate chosen?
+51. How is the best bit rate chosen?
 Estimate bit error rate (BER) using signal-to-noise ratio (SNR) at physical layer.
 
 
-103. What are problems in collision avoidance for wireless networks?
+52. What are problems in collision avoidance for wireless networks?
 -hidden node problem:  
  
 -exposed node problem:  
@@ -344,7 +363,7 @@ C can interfere with B’s reception of A, but cannot detect A’s interference.
 
 
 
-104. What is carrier sense multiple access / collision avoidance (CSMA/CA)?
+53. What is carrier sense multiple access / collision avoidance (CSMA/CA)?
  Uses RTS-CTS (Ready to Send-Clear to Send) packets,, containing a time limit until other transmitters must wait until transmitting.
 1.Transmitter sends RTS telling receiver to send CTS packet
 2.CTS packet contains time limit until other transmitters can send
@@ -352,7 +371,7 @@ C can interfere with B’s reception of A, but cannot detect A’s interference.
 4.Failed CTS reception triggers exponential backoff retries for RTS.
 
 
-105. What is a distribution system?
+54. What is a distribution system?
 How access points (non-mobile nodes in base-station-oriented topologies) are interconnected.
 Scanning: node sends probe frame, APs replay with probe response. Node selects one, sending association request, gets association response.
 A node performs active scanning, an algorithm where it probes access points to determine which to connect to.
@@ -361,7 +380,7 @@ Access points perform passive scanning, sending beacons advertising transmission
 
 
 
-106. *Describe IEEE 802.11 frame format:
+55. *Describe IEEE 802.11 frame format:
 -4 addresses: nodes and APs. AP addresses only needed while in dist. Sys., not between node and AP (original sender may not be most recent transmitter) (toDS and fromDS bits indicate).
 -Up to 2312 bytes. 
 -CRC: 32b
@@ -375,7 +394,7 @@ Access points perform passive scanning, sending beacons advertising transmission
 2.7.3 Bluetooth (802.15.1)
 
 
-107. Describe bluetooth.
+56. Describe bluetooth.
 -~3Mbps, 10m range Personal access network (PAN).
 -piconet configuration: master and up to 7 slaves. Only master-slave communication.
 -license-exempt band, requires frequency hopping spread spectrum to deal with interference.
@@ -385,45 +404,43 @@ Access points perform passive scanning, sending beacons advertising transmission
 2.8 Access Networks
 
 
-108. What are the 2 types of access networks?
+57. What are the 2 types of access networks?
 -passive optical networks (PON): fiber to home
 -cellular network
 
 
-109. What is a central office?
+58. What is a central office?
 Edge site where ISP’s (telco or cable company) national backbone connects to city, edges of ISP network.
   
   
 
-110. What are splitters and repeaters?
+59. What are splitters and repeaters?
 They forward frames without storing them; splitters in PON, repeaters in Ethernet.
 
 
-111. Where does framing happen in PONs?
+60. Where does framing happen in PONs?
 Optical line terminal (OLT) in ISP premises
 Optical network unit (ONU) in home endpoint
 
 
-112. How does PON’s sharing algorithm work?
+61. How does PON’s sharing algorithm work?
 Downstream: broadcast: all OLTs receive all packets transmitted by ONU.
 Upstream: TDMA: OLTs implement round robin to grant ONUs slices of transmit time.
 
 
-113. How does LTE (3G-6G) work differently from WiFi?
+62. How does LTE (3G-6G) work differently from WiFi?
 Allocation of radio spectrum to UEs is reservation-based, not contention-based (which is like Ethernet as well). It expects high usage and explicitly assigns shares to users.
 
 
-114. What is orthogonal frequency-division multiple access?
+63. What is orthogonal frequency-division multiple access?
 Data can be simultaneously sent by multiple users through 12 subcarrier frequencies, using coding to minimize interference.
 
 
-115. What is a resource element?
+64. What is a resource element?
 Minimum schedulable unit, 15-kHz wide band around one subcarrier frequency and the time it takes to transmit one OFDMA symbol.
   
 
-116. How many bits can be encoded per symbol for each modulation rate?
+65. How many bits can be encoded per symbol for each modulation rate?
 Quadrature amplitude modulation (QAM): 
 16-QAM: 4
 64-QAM: 6
-
-

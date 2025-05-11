@@ -1,4 +1,34 @@
-﻿
+﻿Questions:
+Why does advertisedWindow need to be 2xdelayxB, not delayxB? P.246 says dxB.
+
+
+Formulas:
+Latency = prop + trans + queue
+Prop = distance / c
+Trans = packet size / bandwidth
+
+
+Wavelength = Speedoflightcopper / frequency
+
+
+Maximum sending rate = bits-per-frame / time-per-frame
+  
+  
+
+
+
+Shannon capacity C=B*log_2(1+S/N)
+
+
+Power = Throughput / Delay  
+LastByteRcvd - LastByteRead <= MaxRcvBuffer
+AdvertisedWindow = MaxRcvBuffer - ((NextByteExpected - 1) - LastByteRead) //End of buffer to NextByteExpected-1
+
+
+Ch 1
+1.1 + 1.2
+
+
 1. What is a network (general definition)? 
 -Defined recursively as consisting of two or more nodes connected by a physical link. 
 -Set of serial lines to attach dumb terminals to mainframe computers. 
@@ -215,7 +245,7 @@ In an active open, the client says who it wants to communicate with using connec
 Bandwidth (throughput) is the number of bits over time (bps), or how long it takes to transmit each bit.
 
 
-38. How much time to transmit each bit for a 10Mbps network?
+38. How much time to transmit each bit for a 10Mbps network? 2Mbps? (bit width)
 10,000,000 bps = 1s / 10,000,000 bits 
 1s / 10,000,000 bits x (1/10,000,000s) / (1/ 10,000,000 bits) = 1x10^-7s / bit = 0.1 microseconds
 
@@ -294,26 +324,36 @@ Throughput = 8e6 bits / 0.108s
 = 7.407e7 bps = 74.07 Mbps
 
 
-50. Why does transferring a larger amount of data help improve the effective throughput?
+50. Calculate time to transfer 1000-KB, with 50ms RTT, packet size 1KB, and 2*RTT handshake time.
+1. Bandwidth = 1.5Mbps, data sent continuously.
+Time = 2RTTs + transmission time (push) + propagation time (½ rtt)
+100ms + 25ms + 8192Kb/1.5Mbps
+.125s + 5.461 s
+=5.586s
+2. ***** After each packet, wait one RTT for ACK (wait-and-send, transmission is technically complete before final acknowledgement is received, so the final ½ RTT is not included).
+(50ms * num_packets) + 5.586s
+50ms * 999 + 5.586s //last packet is half-cycle; add ½ rtt if 999; or subtract ½ rtt if 1000
+=55.536s
+
+
+
+
+51. Why does transferring a larger amount of data help improve the effective throughput?
 Reduces the impact of overhead and latency on the total data transfer. Approaching an infinitely large transfer size causes throughput to approach network bandwidth. When transfer size is low relative to rtt x bandwidth, the sender must still wait one full RTT for a response, so volume in the ‘pipe’ is being wasted.
 
 
-51. What is the struggle in placing an upper limit on an application’s bandwidth? What is the solution?
+52. What is the struggle in placing an upper limit on an application’s bandwidth? What is the solution?
 Video streams are compressed, transmitting only differences across frames, and frames themselves are also compressed. Therefore, video does not flow at a constant rate, and using the average does not account for fluctuations outside of the used time interval which exceed the maximum channel capacity. 
 The solution is to buffer outgoing bursts which exceed the instantaneous capacity, so the stream is still steady with time, although this requires a delay.
 
 
-52. What is jitter and its solution?
+53. What is jitter and its solution?
 Jitter is variation in latency across packets often introduced by the network through multi-hop queuing delays. It implies the receiver of a video stream can handle early frames, but not late frames. 
 The solution is to know the upper and lower bounds on latency that a packet can experience, basically estimating the largest inter-packet gap and delaying the entire stream by this amount using a buffer on the receiver’s end.
 
 
-53. What are software defined networks and why relevant?
+54. What are software defined networks and why relevant?
 -Engineering practices applied to network internals rather than using applications on top, i.e. cloudification. 
 -They are relevant because computer networks are in the midst of major innovation (feature velocity) while operators must also provide reliability. 
 a.This is done using commodity hardware with software-based intelligence 
 b.and devops, or agile engineering processes that break down barriers between development and operations.
-
-
-
-

@@ -1,10 +1,11 @@
-﻿
+﻿Ch. 4 Advanced Internetworking
 
-161. What are autonomous systems (AS) and what is the main idea?
+
+1. What are autonomous systems (AS) and what is the main idea?
 Internet routing domain. The purpose is to provide an additional way to hierarchically aggregate routing information in a large internet. (scalability). Decouples intradomain and interdomain routing, where only interdomain routing problem requires ASs to share reachability information.
 
 
-162. What are the challenges of interdomain routing, making it more difficult than intradomain?
+2. What are the challenges of interdomain routing, making it more difficult than intradomain?
 -Policy: Each AS needs to determine own routing policies, which become complex and must be supported by the interdomain routing system. Cannot get information from other ASs.
 -Routing: Finding some non-looping, policy-compliant path (much more complex than simple path cost optimization).
 -Scale: Internet backbones must be able to route to any internet address.
@@ -12,15 +13,15 @@ Internet routing domain. The purpose is to provide an additional way to hierarch
 -Trust: reachability advertisements of providers can be wrong.
 
 
-163. What is an area?
+3. What is an area?
 Set of routers administratively configured to exchange link-state information.
 
 
-164. What is an area border router (ABR)?
+4. What is an area border router (ABR)?
 A router that is part of the backbone area and a non-backbone area.
 
 
-165. What is OSPF?
+5. What is OSPF?
 A link-state routing protocol that partitions a routing domain into areas. Basically, networks in different areas communicate through ABRs, through the backbone. It hides link state information from other areas, using ABRs to advertise shortest path to destination networks. This provides scalability, although sometimes preventing optimality, as all inter-area paths must go through the backbone, even if they’re directly connected.
 
 
@@ -28,24 +29,24 @@ A link-state routing protocol that partitions a routing domain into areas. Basic
 
 
 
-166. What is a peering point?
+6. What is a peering point?
 Multiple providers connect to a backbone through same link.
 
 
 
 
-167. What is border gateway protocol (BGP)?
+7. What is border gateway protocol (BGP)?
 Interdomain routing algorithm used by border routers and BGP speakers to find any loop-free path. Speakers Advertise complete paths as an enumerated list of ASs to reach a network. Allows each AS to apply its own interdomain protocol to the advertised paths. Prevents looping paths by detecting self in full path. Runs on top of TCP. Assumes internet is arbitrarily interconnected set of AS.
-168. What does BGP speaker advertise?
+8. What does BGP speaker advertise?
 -local networks
 -(If transit) reachable networks
 -path info
-169. What are iBGP and eBGP?
+9. What are iBGP and eBGP?
 -iBGP: All routers run iBGP and an intradomain routing protocol. iBGP tells each interior node which border router to use.
 -eBGP: Border routers also run eBGP, advertising reachable addresses to each other.
 
 
-170. Define stub AS, multihomed AS, and transit AS:
+10. Define stub AS, multihomed AS, and transit AS:
 -stub AS: Only connected to 1 other AS, carrying local traffic.
 -multihomed AS: Connected to multiple AS, but does not carry transit traffic.
 -transit AS: (backbone AS) carries transit traffic.
@@ -53,29 +54,29 @@ Interdomain routing algorithm used by border routers and BGP speakers to find an
 
 
 
-171. What are three common relationships between autonomous systems (AS) and the respective policies?
+11. What are three common relationships between autonomous systems (AS) and the respective policies?
 -provider-customer: advertises all routes to customers and providers.
 -customer-provider: Advertises provider-learned routes to customer and customer-learned to their provider, but not to another provider.
 -peer: Provider shares customer-learned routes with peer, peer-learned with customers, but not with other providers.
 
 
-172. What are two shortcomings of distance vector multicast routing protocol (DVMRP)?
+12. What are two shortcomings of distance vector multicast routing protocol (DVMRP)?
 -floods network, even nodes with no path to mc group
 -duplicate broadcast packets are created due to each router’s forwarding protocol
 
 
-173. What is difference between one-to-many and many-to-many multicast?
+13. What is difference between one-to-many and many-to-many multicast?
 -source-specific multicast, receiving host specifies sending host and multicast group
 -any-source multicast
 
 
-174. What are home agent, home address, and foreign agent?
+14. What are home agent, home address, and foreign agent?
 
 
-175. What are problems delivering packet to mobile node?
+15. What are problems delivering packet to mobile node?
 
 
-176. What are features of IPV6?
+16. What are features of IPV6?
 -128-bit addresses
 -QoS (TrafficClass & FlowLabel)
 -Multicast
@@ -86,3 +87,5 @@ Interdomain routing algorithm used by border routers and BGP speakers to find an
 -Enhanced routing (mobile)
 
 
+17. What is proxy ARP?
+If ARP request gets to home network of a mobile node that is on a foreign network, the home agent (has an IP tunnel to the node) responds claiming that it is the node (saying the node’s address maps to its MAC address). IP traffic for the node then goes to the home agent, which tunnels it to the node.

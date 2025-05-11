@@ -1,0 +1,27 @@
+﻿Ch. 7
+
+
+1. What is argument marshalling/serialization/encoding?
+Convert base types, pack structures, and linearize complex structures to form a contiguous message.
+
+
+2. What are 3 issues in argument marshalling?
+1.How to make base types, flat types, and complex structures transmittable
+2.Should receiver handle conversion (NxN/receiver-makes-right) or sending host (canonical intermediate form)?
+3.determining types: tagged (data message has type augmentation) vs untagged (RPC function call specifies types) (arrays still need length tag)
+
+
+3. What is a stub?
+Code implementing argument marshalling, usually for RPC.
+4. What is run length encoding?
+-brute-force compression, replaces consecutive symbols/pixel values with count, symbol pair.
+-Can increase size if not enough repetition in data.
+
+
+5. What is differential pulse code modulation?
+-Encodes symbols using difference from reference symbol (difference using less bits than symbols)
+-Good when consecutive data has similar values
+
+
+6. What is Lempel-Ziv?
+-Store strings in dictionary and replace with index in the data.
