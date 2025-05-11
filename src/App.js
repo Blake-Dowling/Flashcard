@@ -6,7 +6,7 @@ import Card from './Card'
 
 
 function App() {
-  const [notesFiles, setNotesFiles] = useState(["Networks Ch1.txt", "Networks Ch2.txt", "Networks Ch3.txt", "Networks Ch4.txt", "Reinforcement Learning.txt"])
+  const [notesFiles, setNotesFiles] = useState(["Networks Ch1.txt", "Networks Ch2.txt", "Networks Ch3.txt", "Networks Ch4.txt", "Networks Ch5.txt", "Networks Ch6.txt", "Reinforcement Learning.txt"])
   const [selectedFile, setSelectedFile] = useState(0)
   const [questions, setQuestions] = useState([])
   const [answers, setAnswers] = useState([])
@@ -33,11 +33,14 @@ function App() {
       .then(text => {
         let newQuestions = []
         let newAnswers = []
+        // console.log(response)
+        // console.log(JSON.stringify(text))
         // console.log(text.replace(/\r/g, '\\r').replace(/\n/g, '\\n'))
         text?.split(/\s+(?=\d+\. )/g).forEach((entry, index) => {
-          // console.log(entry)
+          // console.log(JSON.stringify(entry))
           const [question, ...answer] = entry.split(/\r\n(.*)/s)
           if(question.length && answer.length){
+            // console.log(question)
             newQuestions.push(question)
             newAnswers.push(answer)
           }
@@ -64,7 +67,7 @@ function App() {
   function clickAction(direction){ //direction == -1 or 1
 
     setQuestionNumber(prevQuestionNumber => {
-      let newQuestionNumber = ((prevQuestionNumber + direction) + questions.length) % questions.length
+      let newQuestionNumber = ((prevQuestionNumber + direction) + (2*questions.length)) % (2*questions.length)
       setShowAnswer(newQuestionNumber % 2 == 1)
       return newQuestionNumber
     })
@@ -90,7 +93,7 @@ function App() {
       >
         {random ? <p1>sequential</p1> : <p1>random</p1>}
       </button>
-      {parseInt(questionNumber/2)}/{questions.length}
+      {parseInt(questionNumber/2)+1}/{questions.length}
       <Card
           question={questions[parseInt(questionNumber/2)]}
           answer={answers[parseInt(questionNumber/2)]}

@@ -1,6 +1,6 @@
 ﻿
 
-117. What is the internetworking problem?
+120. What is the internetworking problem?
 Ethernet is limited to 1024 hosts, point-to-point limited to 2, wireless limited by radio range.
 1.How interconnect links? Bridges (L2 switch): to connect ethernet segments.
 2.How deal with heterogeneity (connect different types of networks)? gateways/routers (L3 switch): Use IP protocol.
@@ -10,114 +10,75 @@ Ethernet is limited to 1024 hosts, point-to-point limited to 2, wireless limited
 3.1 Switching Basics
 
 
-118. What is a star topology?
+121. What is a star topology?
 Allows multiple hosts to connect to a switch without reducing performance of other connected hosts, like with shared-media network (all hosts are directly connected to switch, instead of to medium).
 
 
-119. What is reconfigurable optical add/drop multiplexer (ROADM)?
-Node in layer-2 optical transport network performing dense wavelength division multiplexing (DWDM), where single fiber transmits >100 wavelengths, each with >100Gbps of data. Obstures a single wavelength as a single point-to-point link between two switches that are connected to either end. Reconfigurable, meaning end-to-end (packet-switched network constructed on top) wavelengths and topologies can be changed.
+122. What is reconfigurable optical add/drop multiplexer (ROADM)?
+Node in layer-2 optical transport network performing dense wavelength division multiplexing (DWDM), where single fiber transmits >100 wavelengths, each with >100Gbps of data. Obscures a single wavelength as a single point-to-point link between two switches that are connected to either end. Reconfigurable, meaning end-to-end (packet-switched network constructed on top) wavelengths and topologies can be changed.
 
 
-120. What is forwarding and what are the 3 methods?
-Aka switching, forwarding of packets from one link to another by a switch. Each packet has a destination host address, each ethernet card has globally unique identifier, each switch has input and output ports.
-1. Datagram Switching
-* Definition: A packet-switched network approach where each packet is treated as an independent unit of data.
-* How it Works:
-   * Each packet (datagram) contains destination information (like an address).
-   * Packets are routed independently of each other, which means they may take different paths through the network.
-   * Packets may arrive at their destination out of order and require reassembly.
-* Key Characteristics:
-   * No dedicated path: The network does not establish a fixed path between the sender and receiver.
-   * Dynamic routing: Routers decide the best route for each packet at the moment it is transmitted.
-   * Unreliable delivery: Packets might be delayed, dropped, or arrive out of order.
-   * Example Protocols: IP (Internet Protocol), which is the foundation of the internet, uses datagram switching.
-* Analogy: Sending individual postcards through the postal system, where each postcard might take a different route to the destination.
-________________
+123. According to OSI model, what is the main function of the network layer?
+Switching and forwarding.
 
 
-2. Virtual Circuit Switching
-* Definition: A packet-switched network approach where a logical path (or virtual circuit) is established between the sender and receiver before sending data packets.
-* How it Works:
-   * A virtual circuit is created between the sender and receiver, often using a setup message.
-   * Once established, all packets follow the same predefined route (like in circuit switching).
-   * The circuit remains active until the communication ends, after which it is terminated.
-* Key Characteristics:
-   * Fixed path: All packets take the same route through the network.
-   * Orderly delivery: Packets arrive in the correct order since they follow the same path.
-   * Setup phase: Requires an initial setup phase to establish the virtual circuit.
-   * Reliable delivery: Virtual circuits offer more reliability, as resources like bandwidth can be reserved.
-   * Example Protocols:
-      * TCP (Transmission Control Protocol) over IP provides reliability by simulating virtual circuits.
-      * Legacy protocols like X.25 and ATM (Asynchronous Transfer Mode) use virtual circuit switching.
-* Analogy: Like making a phone call where a path is set up before communication begins, and all messages take the same path.
-3.Source routing is a routing technique in computer networks where the sender (source) specifies the entire route (or a partial route) that the packet should take to its destination. Instead of leaving the routing decisions entirely to intermediate routers, the sender embeds the routing path within the packet itself.
+124. What is forwarding and what are the 3 methods?
+Aka switching, forwarding of packets from one link to another by a switch. Each packet has a destination host address, each ethernet card has globally unique identifier, each switch has input and output ports. Datagram switching, Virtual Circuit, source routing.
 
 
+125. What assumptions can be made in switching and forwarding?
+-Each host has a globally unique address.
+-There is some way to identify input and output ports of each switch (numbers or names)
+
+
+126. What are characteristics of VCI?
+-1RTT connection before data is sent
+-reduced packet overhead due to data packets lacking full address
+-connection failure requires teardown and reestablishment
+-packets sequential
+
+
+127. What is Asynchronous transfer mode (ATM)?
+VCI with fixed-length packets, user-network interface, and network-network interface
 
 
 3.2 Switched Ethernet
 
 
-121. How can multiple ethernets be connected?
+128. How can multiple ethernets be connected?
 In networking, a bridge is a device that connects and filters traffic between two or more network segments, usually within the same local area network (LAN). It operates at the data link layer (Layer 2) of the OSI model and uses MAC addresses to make forwarding decisions. Bridges help improve network performance, reduce congestion, and divide large networks into smaller, manageable segments.
 
 
-122. What is the learning bridge algorithm?
+129. What is the learning bridge algorithm?
 Primitive method for a switch to fill in its forwarding table, assigning each received frame’s source address (host) to the port it came through.
 
 
-123. What is the Spanning Tree Algorithm (STA)?
-Removes loops from a network, ensuring each switch is aware of the same spanning tree.
-When there are multiple bridges in a network, redundant links might form loops. This can cause:
-Broadcast storms: Broadcast packets (like ARP requests) keep circulating endlessly.
-MAC table instability: Bridges continuously learn and relearn incorrect paths due to packets looping.
-Network congestion: Loops cause duplicated frames, overwhelming the network.
-What the Spanning Tree Algorithm Does
-The Spanning Tree Algorithm ensures that there is only one active path between any two devices in the network. It disables redundant links, creating a loop-free tree structure while retaining redundancy for failover purposes.
-Root Bridge: The central bridge in the spanning tree with the lowest Bridge ID.
-Root Port: The port on a non-root bridge with the shortest path to the Root Bridge.
-Designated Port: The port that provides the best path to the Root Bridge for a specific segment.
-Blocked Port: A port that is not part of the spanning tree to avoid loops.
-Example Network:
-* 3 bridges: B1, B2, B3
-* Interconnected via multiple links.
-Step 1: Root Bridge Election
-* Suppose:
-   * B1 has Bridge ID = 1
-   * B2 has Bridge ID = 2
-   * B3 has Bridge ID = 3
-* B1 becomes the Root Bridge because it has the lowest Bridge ID.
-Step 2: Root Port Selection
-* Each bridge identifies the port with the shortest path to B1 (Root Bridge).
-* If B2 is connected to B1 via a 100 Mbps link and B3 via a 1 Gbps link:
-   * B2's root port points to B1 via the 100 Mbps link.
-   * B3's root port points to B1 via the 1 Gbps link.
-Step 3: Designated Ports
-* On each network segment, the bridge with the shortest path to the Root Bridge assigns its port as the Designated Port for that segment.
-Step 4: Block Redundant Ports
-* If multiple links connect two bridges, only one port remains active while others are blocked to prevent loops.
+130. What is the Spanning Tree Algorithm (STA) and what are its limitations?
+For bridges (LAN switches). Removes loops from a network, ensuring each switch is aware of the same spanning tree. Does not scale or handle heterogeneity.
 
 
-Convergence Time: Traditional STP (IEEE 802.1D) can take tens of seconds to reconverge after a topology change, which may not be suitable for time-sensitive applications.
-Inefficiency: Redundant links are disabled, which can waste bandwidth.
-Complexity in Large Networks: Managing spanning trees in large-scale networks can become complex.
+131. What are the shortcomings of bridges/ spanning tree algorithm?
+-Neither scale, do not address heretogeniety.
+-Convergence Time: Traditional STP (IEEE 802.1D) can take tens of seconds to reconverge after a topology change, which may not be suitable for time-sensitive applications.
+-Inefficiency: Redundant links are disabled, which can waste bandwidth.
+-Complexity in Large Networks: Managing spanning trees in large-scale networks can become complex.
 
 
 
 
-124. What is a virtual LAN (VLAN)?
+132. What is a virtual LAN (VLAN)?
 Solves scalability problem of limiting broadcast to partition of a network. Allows change to logical topology without moving wires or changing addresses. Uses VLAN header to only forward packets within same VLAN.
 
 
 3.3 Internet (IP)
 
 
-125. What is an internetwork?
+133. What is an internetwork?
 -Collection of multiple interconnected networks that communicate with each other. These networks can be of different types (e.g., local area networks (LANs), wide area networks (WANs), or metropolitan area networks (MANs)) and are connected through networking devices such as routers, gateways, or switches.
 -Using layer 3 technologies, they improve upon bridged networks in scalability, heterogeneity, and routing efficiency.
 
 
-126. Why pick L2 versus L3 networks?
+134. Why pick L2 versus L3 networks?
 L2: network is a single broadcast domain.
 L3: want hosts to be on different networks. Offer solutions to scaling and heterogeneity limitations.
 
@@ -126,58 +87,55 @@ L3: want hosts to be on different networks. Offer solutions to scaling and heter
 
 
 
-127. What is IP?
+135. What is IP?
 -”The key tool used today to build scalable, heterogeneous internetworks.”
 -IP (Internet Protocol) is the fundamental protocol in the Internet Protocol Suite that provides unique addressing and routing for data communication over a network. It operates at the Network Layer (Layer 3) of the OSI model and enables data packets to travel from a source device to a destination device across interconnected networks.
-Key Features of IP
-Packet-Switched: IP breaks data into small units called packets, which are sent independently across the network.
-Connectionless: IP does not establish a dedicated connection between the sender and receiver before sending data.
-Best-Effort Delivery: IP does not guarantee delivery, error correction, or in-order arrival of packets. It relies on higher-layer protocols (like TCP) for reliability.
-Global Addressing: Every device on an IP-based network has a unique identifier, the IP address.
+136. What are the key features of IP?
+-Packet-Switched, Connectionless, Best-Effort Delivery, Global Addressing
 
 
 
 
 
 
-128. What is hierarchical aggregation?
+137. What is hierarchical aggregation?
 IP addresses are split into network and host addresses. This improves scalability of large networks by requiring routers only to deal with network addresses. 
   
 
 
 
-129. What is the difference between forwarding and routing?
+138. What is the difference between forwarding and routing?
 Forwarding is the process of taking a packet from and input and sending it to the appropriate output.
 Routing is the process of building up the tables that allow the correct output for a packet to be determined.
 
 
-130. What is a private IP address, versus a public IP address?
+139. What is a private IP address, versus a public IP address?
 Private IP addresses are assigned to hosts in a private network, for the gateway to use to address packets from the internet. They are not addressable from the public internet, securing private hosts, and are often reused across private networks, which conserves scarce public IPs. They often consist of 192.168.x.x. They allow the network’s gateway to take advantage of the hierarchical IP structure when routing packets. They are necessary for hosts to send packets to other networks, because the host is responsible for creating layer 3 packets. This is why a router can’t simply use each host’s layer 2 MAC address instead.
 
 
-131. What really is subnetting?
+140. What really is subnetting?
 Subnetting is simply granularization of classful IP addressing, which only allowed network sizes of 254, ~65,000, or ~16.7m hosts per class C, B, or A network. Only 16,000 class B were available, and using many class A networks for a single institution clearly wasn’t feasible. Subnetting allows you to segment your network into a custom assortment of sub-networks, importantly adding on subnetworks as needed (scalability).
 
 
-132. What are benefits of subnetting?
+141. What are benefits of subnetting?
 1.Efficient use of scarce network addresses
 2.Improves router efficiency by reducing forwarding table sizes.
 3.Broadcast message traffic reduced, only going to intended subnetwork.
 4.Increased security, segmenting communication between departments.
 
 
-133. What 4 assumptions can be made about network forwarding?
+142. What 4 assumptions can be made about network forwarding?
 1.Every datagram contains destination IP address
 2.The network part of an IP address uniquely identifies a physical network that is part of the Internet
 3.All hosts and routers that share the same network part of their address are connected to the same physical network, and can communicate with frames
 4.Every physical network connected to the Internet has a router that can communicate with other networks and the network itself.
 
 
-134. How is a datagram sent by a host, depending on the destination address?
+143. How is a datagram sent by a host, depending on the destination address?
 If it’s on the same physical network, it can be sent directly. Otherwise it is sent to the next hop router (the one it deems the best) or else the assigned default router.
 
 
-135. A datagram’s destination address is 128.96.34.15 and its subnet’s subnet mask is 255.255.255.128. Where does the host send the datagram?
+144. A datagram’s destination address is 128.96.34.15 and its subnet’s subnet mask is 255.255.255.128. Where does the host send the datagram?
 1.calculate address
 Bitwise and of 28.96.34.15 and 255.255.255.128 = 
 128.96.34.0.
@@ -185,35 +143,31 @@ Bitwise and of 28.96.34.15 and 255.255.255.128 =
 3.Router performs step 1 for dest. address and each entry’s subnet mask, comparing to each entry’s subnet address. If equals, sends to corresponding next hop.
 
 
-136. What is supernetting, or Classless interdomain routing (CIDR)?
+145. What is supernetting, or Classless interdomain routing (CIDR)?
 Supernetting is typically used by ISPs or large organizations to combine, rather than split, networks. It is basically adding a router to aggregate many contiguous network addresses into a single address. The purpose is to simplify routing and reduce the size of routing tables. As an example, if a company needed dozens of 256-host networks, that would require dozens of different addresses in a router’s routing table, and supernetting allows a single router to handle that.
 CIDR notation for subnet masks of arbitrary length e.g. /27, /30
 
 
-137. Apply longest match rule to the following table addresses:
-a)171.69
-b)171.69.10
-What does destination address 171.69.10.5 match?
+146. Apply longest match rule to the following table addresses: a)171.69 b)171.69.10 What does destination address 171.69.10.5 match? What does destination address 171.69.20.5 match?
 b)
-What does destination address 171.69.20.5 match?
 a)
 
 
-138. What is address resolution protocol (ARP)?
+147. What is address resolution protocol (ARP)?
 System of building up a table of mappings of IP addresses to link-level addresses in each node of a network. It is basically a cache, storing responses to ARP requests. An ARP request is a request for a single MAC address corresponding to a received datagram destination address, broadcast to all hosts on the network when a host receives a datagram. 
 
 
-139. What is dynamic host configuration protocol (DHCP)?
+148. What is dynamic host configuration protocol (DHCP)?
 System of automatically assigning IP addresses to hosts on a network. Improves manageability of a network by requiring a range of addresses to be configured to a DHCP server rather than individual addresses to each host.
 
 
 
 
-140. What is a public, versus a private network?
+149. What is a public, versus a private network?
 A public network has at least one host with a public IP, addressable by the public internet, such as a server. A private network, although having a public IP for its gateway router, assigns only private IPs to each host, such as in home and corporate networks.
 
 
-141. What is network address translation (NAT)?
+150. What is network address translation (NAT)?
 -Basically, conversion between a private IP and a pair consisting of public IP and port.
 -It makes it so that traffic from the public internet cannot go to private hosts unless a request is first sent by a private host.
 -During outbound transmission from a private network, a router changes the source IP of the packet from the private IP to the router’s own public IP. The router now uses a dynamically assigned port number in the packet header to correspond with the former private IP, storing this mapping in the NAT table. When a response is received from the public internet, the same port is in the header, so the router can swap the destination address back to the source private IP corresponding to the port.
@@ -221,18 +175,18 @@ A public network has at least one host with a public IP, addressable by the publ
 
 
 
-142. What is port forwarding?
+151. What is port forwarding?
 It is a way of allowing inbound requests to a private host (specifically, a particular service or application). Normally with NAT, only the private network’s router is concerned with a private host’s source port, and public traffic does not know how to address a private host. Port forwarding provides a public port, mapped to a private host’s service’s private port, so that public traffic can send packets to it, effectively reversing NAT. The router then forwards the inbound packet to the private IP and port mapped to the provided public port.
 
 
-143. What is IP tunneling?
+152. What is IP tunneling?
 Purpose: IP tunneling, like port forwarding, allows inbound traffic, but to an entire network instead of a single service. It effectively creates a single network, but connected over shared physical connections, such as the public internet.
 How works: A transmitting host is able to use private IPs from another network, and the reason the connecting routers can process the private IP is that the packet is encapsulated in another IP packet with the routers being the source and destination. Only after the receiving router decapsulates the packet does it route it using the private destination IP. 
 
 
 
 
-144. What is a virtual private network (VPN)?
+153. What is a virtual private network (VPN)?
 It is basically a set of IP tunneled networks using encryption.
 Security: The inner packet header and payload are encrypted, which prevents the private IP and port from being read by intermediate hosts in the internet, with which an attacker could DDOS or brute force a private host.
 
@@ -246,43 +200,37 @@ Security: The inner packet header and payload are encrypted, which prevents the 
 3.4 Routing
 
 
-145. What are the two major classes of graph-based distributed routing algorithms?
+154. What are the two major classes of graph-based distributed routing algorithms?
 1.distance-vector routing or routing information protocol (RIP)
 -Bellman Ford, minimizing number of hops
 2.Link-state routing or open shortest path first (OSPF)
 -Dijkstra’s algorithm, can optimize bandwidth, delay, cost, or a combination.
 
 
-146. What is reliable flooding?
+155. What is reliable flooding?
 Advertisement of link-state information to all other nodes in routing protocol.
 
 
 3.5 Implementation
   
 
-147. What are the two types of processing done in a router?
+156. What are the two types of processing done in a router?
 1.Control plane: background processing required to control the network (OSPF, RIP, BGP)
 2.Data/user plane: per-packet processing required to move packets from input port to output port.
 
 
-148. What is a network processor unit (NPU)?
+157. What is a network processor unit (NPU)?
 Specialized processor in a white-box switch, optimized for parsing packet headers and making forwarding decisions, yielding performance measured in Tbps.
 
 
-149. What is a software defined network (SDN)?
+158. What is a software defined network (SDN)?
 Designed to decouple control and data planes using a standard interface to enable running the control plane on commodity servers and data plane on white-box switches.
 
 
-150. What is a network operating system (NOS)?
+159. What is a network operating system (NOS)?
 
 
-151. What is network virtualization?
+160. What is network virtualization?
 Where VPNs only virtualize addressing and routing tables, a virtual network should support all basic abstractions of a physical network, as a virtual machine abstracts CPU, storage, and IO.
-
-
-
-
-To continue reading about the cloudification of the Internet, see Perspective: The Cloud is Eating the Inter- net. To learn more about the maturation of virtual networks, we recommend:
-• Network Heresy, 2012. • Tungsten Fabric, 2018.
 
 
