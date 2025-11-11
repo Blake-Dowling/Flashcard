@@ -1,0 +1,154 @@
+﻿1. What are basic OO Heuristics?
+-Keep related data and behavior in one place
+-A class should capture only 1 abstraction
+-beware of classes with many accessors in their public interface
+2. What are bad smells?
+-comments should explain why, not what
+-incommunicative name
+-inconsistent names
+-type embedded in name
+-conditional complexity: consider decorator, strategy, or state.
+-dead code
+-utility methods: related code should be together
+3. What is the one responsibility rule?
+-A class does it all, well, and only.
+-Class should be described in 25 words
+
+
+4. Comments:
+-Are necessary? Explain why not what? For people not machines?
+
+
+5. Mysterious/uncommunicative name, vague identifier:
+-sign of deeper design problems.
+-change function declaration, rename variable, rename field
+6. Inconsistent names:
+Open matches with close()
+7. Conditional complexity
+Avoid blocks that grow over time. Consider decorator, strategy, or state.
+8. Dead code
+Delete and use source control
+9. Utility methods
+Sign that related data and operations are not together.
+10. Java & OO
+Many situation, cannot keep data and operations together in Java’s existing classes.
+Ruby, Obj C and smalltalk allow add to existing classes.
+Result: Can’t practice OO in small cases. Develop poor habits. Lose benefits of OO without noticing.
+
+
+11. Once responsibility rule:
+Class does it all, well, and only.
+Try describe in 25 words or less without and or or.
+12. duplicated code:
+-have to ensure all duplicates work.
+-extract function, slide statements, pull up method
+13. Long functions/large class: 
+-The longer a function is, the harder to understand. 
+-Small functions named with intention, extract function, replace temp with query, introduce parameter object, preserve whole object, replace function with command?,  
+14. Long parameter lists: 
+-Pass the containing object if possible or combine functions into a class.
+-Replace parameter with query, preserve whole object, introduce parameter object, remove flag argument.
+15. Global data: 
+-Can be modified from anywhere in code, hard to find bugs. Includes class variables and singletons.
+-encapsulate variable (function wrapper allows seeing what changed the variable), make immutable, 
+16. mutable data:
+-unexpected consequences when used by multiple readers.
+-encapsulate variable,split variable, slide statements, extract function, separate query from modifier, remove setting method, replace derived variable with query, combine functions into class, combine functions into transform, change reference to value.
+17. divergent change:
+-module changed in different ways for different reasons.
+-changes to class involve many parts, means too much functionality, split into another class.
+
+
+18. shotgun surgery:
+-A change requires many small dispersed changes, cascaded in many classes.
+-move function, move field, combine functions into class, combine functions into transform, split phase, inline function, inline class.
+19. Middle man:
+If class delegates all work, why exist? Avoid mere wrappers.
+20. feature envy:
+-function operates excessively on another class
+21. data clumps:
+-duplicate clumps of code
+22. primitive obsession:
+-object of primitives should be a class
+23. repeated switches:
+-Should be replaced with polymorphism
+24. loops:
+-replace with pipeline: map, filter, reduce
+25. Mutable data:
+Changes can often lead to unexpected consequences and tricky bugs.
+Encapsulate variable (setter), extract function, separate query from modifier, combine functions into class/transform, change reference to value.
+26. lazy element/class:
+-dissolve less useful classes if appropriate
+27. speculative generality:
+28. temporary field:
+-field only used in certain circumstances
+-eg param only used by one function made into class member variable or global variable.
+29. message chains:
+-location = rat.getRoom().getMaze().getLocation()
+30. middle man:
+-class simply delegates all work
+31. insider trading:
+
+
+32. alternative classes with different interfaces:
+33. data class:
+-class with just setters and getters
+34. refused bequest:
+-subclass should support interface of parent class, but doesn’t.
+35. Comments:
+36. Inappropriate intimacy:
+-classes require too much knowledge of each other. Classes should know as little as possible about each other.
+
+
+37. Negative slope
+-if (foo) {
+  if (bar) {
+    if (cat = dog) {
+      if (rat
+
+
+38. Solution sprawl
+-too many functions/classes do 1 thing
+
+
+39. What is refactoring?
+Changing internal structure/observable behavior of software.
+To make software easier to understand/modify.
+40. When to refactor?
+Rule of three
+-add function
+-fix bug
+-code review
+
+
+41. When is refactoring hard?
+-databases
+-changing public interfaces
+-major design issues
+
+
+42. What is Johnson’s law?
+-If it is not tested it does not work.
+-the more time between coding and testing:
+-more effort to write tests
+-more effort to find bugs
+-fewer bugs are found
+-time wasted working with buggy code
+-increased development time
+-decreased quality
+
+
+43. What are unit tests?
+-test individual code segments
+-automated
+
+
+44. When to write tests?
+-write test, then code:
+-saves time, makes interface and functionality clear, removes temptation to skip
+
+
+45. What to test?
+-Everything that could break
+-test values: inside, outside, on boundary of valid range
+-GUIs are very hard to test: keep gui layer thin, test program behind gui, not gui

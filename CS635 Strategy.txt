@@ -1,0 +1,39 @@
+﻿1. What is a compositor?
+An instance within a context.
+2. What is a strategy?
+A class hierarchy compositor in which subclasses vary a function.
+3. What is an example of a strategy pattern?
+4. What are use cases for strategy?
+-algorithm is one of many
+-algorithms are hierarchical
+-algorithm encapsulation
+5. What are benefits of strategy?
+-flexible: change behavior at runtime.
+-alternative to subclassing context
+-eliminates conditionals
+-gives choice of implementation (?)
+6. How can strategy get context data?
+-pass through function
+-pass reference to context
+7. What are costs of strategies?
+-clients must be aware of different strategies
+-communication overhead with context
+-increased number of objects
+8. How are strategies used in refactoring?
+Replace conditional logic with strategies.
+9. What is state?
+A class hierarchy compositor in which subclasses vary multiple functions.
+10. What’s an example of a state pattern?
+-TCPConnection contains TCPState which has concrete subclasses TCPEstablished, Listen, and Close, each with open, close, and acknowledge functions.
+-Drawing tool functionality, where tool type can be selected.
+11. What is state used for?
+-An object’s behavior depends of its state.
+12. What are consequences of state?
+-Allows partitioning of code for specific states, rather than in one large conditional (although many classes could also be confusing).
+-Representing states using separate objects makes state transitions explicit rather than changing variables.
+-multiple contexts can share a state if it doesn’t have instance variables.
+13. What are issues with using states?
+-Letting states specify their successor allows extended logic but requires an interface to the context’s state and introduces dependencies between states.
+-Using table: less efficient than func calls, less explicit, no transition actions
+-creation/destruction: if states change rapidly, create all upfront. If used states unknown, create as needed.
+-Dynamic inheritance could allow state to change classes at runtime, but not permitted by most languages.

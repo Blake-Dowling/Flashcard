@@ -1,0 +1,138 @@
+﻿
+      33. When should you use Builder?
+A: When creating complex objects step by step, or when the construction algorithm should be independent of the parts.
+      34. Who are the main participants in Builder?
+A:
+         * Builder: specifies an abstract interface for building parts.
+
+         * ConcreteBuilder: implements construction and assembly.
+
+         * Director: constructs using the Builder interface.
+
+         * Product: the complex object being built.
+
+            35. What is a key benefit of Builder?
+A: It isolates complex construction logic from the object’s final representation.
+            36.  Example analogy of Builder?
+A: A construction manager (Director) building different houses (Products) using different blueprints (Builders).
+            37. What is the intent of the Factory Method pattern?
+A: To define an interface for creating an object, but let subclasses decide which class to instantiate.
+            38. What problem does Factory Method solve?
+A: It decouples code that uses an object from the code that instantiates it.
+            39. What’s a simple example of Factory Method?
+A: A document editor that defines createDocument() — subclasses decide whether to make TextDocument or SpreadsheetDocument.
+            40. What are the key participants of Factory Method?
+A:
+               * Product: defines the interface for objects the factory creates.
+
+               * ConcreteProduct: implements the Product interface.
+
+               * Creator: declares the factory method.
+
+               * ConcreteCreator: overrides the factory method to instantiate the product.
+
+                  41. What’s a major advantage of Factory Method?
+A: Promotes loose coupling between the creator and concrete products.
+                  42. What is the intent of the Prototype pattern?
+A: To specify the kinds of objects to create using a prototypical instance and create new objects by copying this prototype.
+                  43. When should you use Prototype?
+A: When creating new instances is expensive or complex, or when classes to instantiate are specified at runtime.
+                  44. What’s the main idea of the Prototype pattern?
+A: Instead of creating a new object from scratch, you clone an existing prototype.
+                  45. What are the participants of the Prototype pattern?
+A:
+                     * Prototype: declares the clone() interface.
+
+                     * ConcretePrototype: implements cloning.
+
+                     * Client: creates new objects by asking prototypes to clone themselves.
+
+                        46. What’s a benefit of Prototype?
+A: Eliminates subclassing for creating new object types, and makes adding new product types easy.
+                        47. Real analogy of the Prototype pattern?
+A: Copying a document template to make a new document with similar structure.
+                        48. What is the intent of the Singleton pattern?
+A: To ensure a class has only one instance and provide a global access point to it.
+                        49. When to use Singleton?
+A: When exactly one object is needed to coordinate actions across the system (e.g., a configuration manager or logging service).
+                        50. How does Singleton enforce single instance?
+A: It makes its constructor private and provides a static getInstance() method that creates or returns the single instance.
+                        51. What are common issues with Singleton?
+A: Thread-safety in lazy initialization and difficulty in testing due to global state.
+                        52. What’s the main benefit of Singleton?
+A: Controlled access to a unique instance and reduced global namespace pollution.
+                        53. What’s a downside of Singleton?
+A: It can introduce hidden dependencies, acting like a global variable.
+                        54. What is the intent of the Adapter pattern?
+A: To convert the interface of a class into another interface that clients expect — allowing classes with incompatible interfaces to work together.
+                        55. When should you use Adapter?
+A: When you want to reuse an existing class whose interface doesn’t match what clients need.
+                        56. What are the two forms of Adapter?
+A:
+                           * Class Adapter (uses inheritance)
+
+                           * Object Adapter (uses composition)
+
+                              57. What’s a real-world analogy of Adapter?
+A: A power plug adapter that lets a European plug work in a U.S. outlet.
+                              58. What’s the key benefit of Adapter?
+A: Promotes reusability of existing classes without modifying them.
+                              59. What’s the main drawback of Adapter?
+A: Increases complexity and sometimes hides the true interface behind a layer of indirection.
+                              60. What is the intent of the Bridge pattern?
+A: To decouple an abstraction from its implementation so that the two can vary independently.
+                              61. What problem does Bridge solve?
+A: Avoids a permanent binding between an abstraction and its implementation — useful when both should be extensible.
+                              62. Who are the main participants of the Bridge pattern?
+A:
+                                 * Abstraction — defines the high-level control interface.
+
+                                 * Implementor — defines the low-level interface.
+
+                                 * ConcreteImplementor — specific implementation.
+
+                                 * RefinedAbstraction — extends the abstraction.
+
+                                    63. What’s an analogy of the Bridge pattern?
+A: A remote control (abstraction) can work with different TV brands (implementations) via a standard interface.
+                                    64. What’s a key advantage of the Bridge pattern?
+A: Combats class explosion from subclassing every combination of abstraction × implementation.
+                                    65. What is the intent of the Composite pattern?
+A: To compose objects into tree structures to represent part-whole hierarchies, allowing clients to treat individual and composite objects uniformly.
+                                    66. When should you use Composite?
+A: When you want clients to ignore differences between individual objects and groups of objects.
+                                    67. What are the main participants of the Composite pattern?
+A:
+                                       * Component: defines a common interface.
+
+                                       * Leaf: represents primitive objects.
+
+                                       * Composite: stores children and implements child-related operations.
+
+                                          68. What’s the key benefit of the Composite pattern?
+A: Simplifies client code by letting it treat all elements in the structure uniformly.
+                                          69. What’s a potential drawback of the Composite pattern?
+A: Makes it hard to restrict which components can be in a composite.
+                                          70. Analogy of the Composite pattern?
+A: A file system — files and folders are treated the same (you can “open” either).
+                                          71. What is the intent of the Decorator pattern?
+A: To attach additional responsibilities to an object dynamically, providing a flexible alternative to subclassing for extending functionality.
+                                          72. What problem does the Decorator pattern solve?
+A: Avoids class explosion caused by many combinations of behaviors.
+                                          73. What are the key participants of the Decorator pattern?
+A:
+                                             * Component: defines interface.
+
+                                             * ConcreteComponent: core object.
+
+                                             * Decorator: wraps a component.
+
+                                             * ConcreteDecorator: adds new behavior.
+
+                                                74. What’s a real-world analogy of the Decorator pattern?
+A: Coffee orders — you can wrap “coffee” with decorators like “milk,” “sugar,” or “whipped cream.”
+                                                75. What’s a key benefit of the Decorator pattern?
+A: Adds or removes features at runtime without modifying classes.
+                                                76. What’s a drawback of the Decorator pattern?
+A: Can lead to many small objects and complex debugging.
+                                               

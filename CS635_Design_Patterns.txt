@@ -1,0 +1,299 @@
+﻿1. What is an interface?
+
+
+2. What is a concrete class?
+
+
+3. What are 3 classes of design patterns?
+Creational, structural, behavioral
+
+
+4. What are creational design patterns?
+Abstract factory, builder, factory method, prototype, singleton, 
+
+
+5. What are structural patterns?
+Adapter, bridge, composite, decorator, facade, flyweight, proxy, 
+
+
+6. What are behavioral patterns?
+Chain of responsibility, command, interpreter, iterator, mediator, memento, observer, state, strategy, template method, visitor
+
+
+7. What are hooks?
+Functions that are meant to be overridden by subclasses. Eg addSauces(){} gets overridden by ClassicBurgerBuilder with addSauces(){addMustard();addKetchup()}.
+
+
+8. Factory Method?
+Method (hook) that returns object of its decided type at runtime. Eg createMailClient(String type) -> returns new GmailClient(), new OutlookClient(), etc.
+Can be overridden to return its class-specific object or can take a parameter to return one of many typed objects.
+Downsides: requires client to create subclasses.
+
+
+9. Abstract factory
+Template method that creates a family of classes. Think product families.
+Video game with spaceLevel and ForestLevel can just call createEnemy() instead of createOrc() and createAlien().
+The class doesn’t know beforehand which kind of object it needs.
+You want to delegate object creation to subclasses.
+You need to enforce a standard interface for creating related objects.
+
+
+
+
+10. What is Builder?
+Think assembly process.
+Object in a class that provides specific output variant (Composite). Eg BurgerBuilder contains toastBun(), addPatty(), addToppings(), wrapAndServe(). ClassicBurgerBuilder, VeganBurgerBuilder, BreakfastBurgerBuilder subclass and override each function. Separates construction of complex object from its representation so same construction process can create different representations. Use when same construction process works for multiple complex objects.
+
+
+
+
+11. What is dependency inversion principle (DIP)?
+High-level modules should not contain low-level details. Eg MailingApp shouldn’t have client=GmailClient(). It should accept a MailClient object in its constructor, and then its send() function does this.client.send().
+
+
+12. What is a prototype?
+(Object copying) While factory method uses inheritance, prototype uses delegation. Stores instances of class variants (with states) in a dict, then calls hook that dynamically copies objects. Avoids costly or complex construction. Eg copying game characters with certain positions, meshes, ai, etc rather than performing costly instantiation and requiring constructor taking all those values. Also copying NN without having to retrain it.
+Each subclass must implement copy().
+
+
+13. What is singleton?
+Ensures only one instance with global point of access, eg file system.
+
+
+14. What is adapter?
+Wrapper to make interfaces compatible. Eg. AudioAdapter(MediaPlayer legacy); play(){self.legacy.start()}
+
+
+15. What is bridge?
+Separates abstraction and implementation so can vary independently. Eg with abstraction=controller, impl=XBox, Switch. instead of :
+
+class XBox:
+class Controller:
+move()
+
+class Switch:
+class Controller:
+move()
+
+Using Bridge: 
+
+class Controller:
+Controller(Console console)
+move():
+this.console.move()
+
+Therefore, if controller or console change, code change is only required once.
+
+
+Benefits: decoupling dependencies at compile time, allows runtime implementation changes. Independent extensibility. Implementation detail hiding.
+
+
+16. What is composite?
+Eg file system. Recursive tree of objects where items and groups are treated the same. Parent references in children help traversal; assign on creation.Component sharing difficult. Hard to enforce composition rules, ie what can contain what.
+
+
+17. Decorator?
+Aka wrapper. Add responsibilities to an instance, not entire class. Eg border design can be dynamic to instance, whereas can only be static if applied to entire class.
+Wrapper class to prevent combinatorial subclasses. Eg 
+class Coffee:
+cost(): return 5
+class BaseDecorator(Coffee):
+__init__(coffee): self.coffee=coffee
+cost(): return self.coffee.cost()
+class MilkDecorator(BaseDecorator):
+cost():return self.coffee.cost()+1
+class SugarDecorator(BaseDecorator):
+cost():return self.coffee.cost()+2
+print(SugarDecorator(MilkDecorator(Coffee()))) # 8
+
+
+To add responsibilities dynamically and transparently that can be withdrawn. When extension by subclassing is impractical.
+Downsides: mandatory features should be baked in instead. Many small objects are complex.
+
+
+18. Facade?
+Object that holds many other objects to simplify api, hide internal details, and decouple dependencies.
+Downsides: relies on facade, doesn’t fix bad design underneath, and inhibits low-level access.
+Eg HomeTheater, def watch_movie(): self.lights.dim();self.amp.on();self.proj.on();self.dvd.on()
+
+
+
+
+19. Flyweight:
+Share identical objects. Eg instead of 1m character instances, 1m references to 1 of 26 character instances.
+Good for improving efficiency.
+Downsides: difficult to manage states, with multithreading states must be immutable.
+Flyweight        Reuse and share immutable objects to save memory.
+Prototype        Clone existing objects (but each copy is distinct).
+Singleton        One global instance (not many shared ones).
+Object Pool        Reuse limited number of mutable objects.
+
+
+20. Proxy?
+Object that looks like the real one and has same interface but adds behavior before delegating to the real one. Eg ATM verifies pin, controls request to withdraw from the bank.
+
+Virtual Proxy        Lazy-loads expensive objects only when needed.        Image loading, large data files.
+Remote Proxy        Acts as a local representative for a remote object (over network).        gRPC, RMI, REST API client.
+Protection Proxy        Controls access based on permissions.        Checking user roles before allowing access.
+Caching Proxy        Caches results from real object to improve performance.        Web or database caching layer.
+Logging Proxy        Logs calls to the real object for debugging or analytics.        Audit trail for sensitive actions.
+Smart Reference Proxy        Adds reference counting, connection management, or synchronization.        Thread-safe wrappers.
+
+
+Benefits: encap of access control, efficiency, interface reuse, security. 
+Drawbacks: complexity of extra layer of indirection, performance overhead, synchronization issues.
+
+
+21. Chain of responsibility?
+Handler objects contain reference to next-level handler. They either handle or pass. Decouples sender and receiver, because sender only passes to top-level handler. Avoids sending message to all handlers and using conditional blocks. Examples ui help messages, logging levels, customer support tiers, gui event handling, access control.
+
+
+22. Command?
+Object that wraps around another object and calls its functions. Each command object can have do and undo, and can be placed on a stack. Decouples invoker from receiver. Pass commands as objects, log/replay actions, undo/redo, macro commands, schedule. Editors, drawing apps, games, ides.
+
+
+23. Interpreter?
+Expression tree for complex grammars. Math expressions, logic rules, scripting/DSLs, database queries, regex engines, compilers. Eg class Number: self.value, interpret(): return value. Class Add: self.left, self.right, interpret(): return self.left.interpret() + self.right.interpret().
+
+
+24. Iterator?
+-Internal: prebuilt function,
+-external: pass it a function. Flexible, but no guard rails.
+Gives standard way to traverse a collection without depending on internal structure. has_next(), next(). Can create different standardized traversal strategies. Downsides: Extra classes, sequential nature, Concurrent modification issues.
+
+
+25. Mediator?
+Coordinates communication between objects so they don’t have to know about each other.
+Mediator has colleagues and colleagues have mediator. Can become too complex, “god object”.
+
+
+26. Memento?
+Snapshots. Save and restore state of object without breaking encapsulation. Foundation of undo/redo, checkpoints, game saving, version histories. Encapsulates originator’s details, clean state management. Works wells with Command, storing command with memento in undo stack, so command’s undo can restore memento. Downsides: memory/performance usage, needs lifecycle management.
+
+
+Eg 
+
+Class Memento:
+Def init(text):
+self.text=text
+Def get_saved_text():
+Return self.text
+
+
+Class Editor: #Originator
+Def init():
+self.text=””
+Def save():
+Return Memento(self.text)
+Def restore(memento):
+Self.text = memento.get_saved_text()
+
+
+Class History: #Caretaker
+Def init()
+self.mementos=[]
+Def push(memento):
+self.mementos.append(memento)
+Def pop():
+Return self.mementos.pop()
+
+
+27. Observer?
+
+
+28. State?
+Internal
+Different interchangeable classes override a set of functions. The context and its state contain references to each other.
+Benefits: encapsulates state behaviors, easy to add new states, states independent and testable, context is simpler through delegation.
+Downsides: more classes, state transitions scattered, overkill.
+
+
+Class PausedState(State):
+Def play(self):
+self.player.changeState(PlayingState(self.player))
+Class PlayingState(State):
+Def pause(self):
+self.player.changeState(PausedState(self.player))
+
+
+Class AudioPlayer:
+Def __init__(self, state):
+self.state=state
+Def changeState(self, state):
+self.state=state
+Def play(self):
+self.state.play()
+Def pause(self):
+self.state.pause()
+
+
+29. Strategy?
+External
+Different interchangeable classes override a function.
+Eg:
+Class CreditCard(PaymentStrategy):
+Def pay(self,amount):
+Class PayPalPayment(PaymentStrategy):
+Def pay(self,amount):
+Class BitcoinPayment(PaymentStrategy):
+Def pay(self,amount):
+
+
+Class ShoppingCart:
+Def __init__(self, strategy):
+Self.strategy = strategy
+Def checkout(self):
+self.strategy.pay(amount)
+
+
+Benefits:
+Change alg at runtime, removes conditionals, algs are separated, can add algs wo modifying existing code (open/closed principle), isolated testing
+Applications: sorter, file compressor, auth system, rendering, payment processor, robot decisions.
+Drawbacks: more classes, can require more context information, can be overkill.
+
+
+Strategy        Encapsulate algorithms; interchangeable at runtime.        Focused on how something is done.
+State        Change behavior based on internal state.        Strategy chosen by context; State chosen by object’s own state.
+Command        Encapsulate actions/requests.        Strategy = algorithm; Command = operation.
+Template Method        Define algorithm structure, let subclasses override steps.        Strategy swaps the whole algorithm, not just steps.
+
+
+30. Visitor?
+Double dispatch: call depends on both element type and visitor type. museum exhibits “accept” museum guide or museum guest, which performs exhibit-specific actions (describe exhibit, observe exhibit). Replaces element type conditional logic with element-wrapped “accept” function, wherein element decides which of visitor’s functions to call.
+Benefits: keeps element implementations clean, allowing addition of visitors. Good for composite structures.
+Use case: AST, trees, compilers.
+Downsides: Every visitor must have function for every element, making adding elements hard, tight coupling, complex.
+
+
+Eg
+Class Circle(Shape):
+Def accept(self, visitor):
+visitor.visit_circle(self)
+Class Square(Shape):
+Def accept(self, visitor):
+visitor.visit_square(self)
+
+
+Class AreaCalculator(Visitor):
+Def visit_circle(self, circle)
+Def visit_square(self, square)
+Class SvgExporter(Visitor):
+Def visit_circle(self, circle)
+Def visit_square(self, square)
+
+
+31. What is a template method?
+A template method defines an algorithm in terms of abstract operations that subclasses override to provide concrete behavior.
+"refactoring to generalize"You first identify the differences in the existing code and then separate the differences into new operations. Finally, you replace the differing code with a template method that calls one of these new operations.
+• to control subclasses extensions. You can define a template method that calls "hook" operations (see Consequences) at specific points, thereby permitting extensions only at those points.
+-consequences:
+Most commonly used of 23 GoF patterns
+Important in class libraries
+Inverted control structure: parent class calls subclass functions.
+
+
+32. What is Null Object?
+Implements operations of real object, but does nothing.
+Use for some collaborator instances, decouple no-nothing behavior from client.
+Don’t use when object is not used directly by client, ie code using it is encapsulated or handles null behavior well.
+Disadvantages: forces encapsulation
